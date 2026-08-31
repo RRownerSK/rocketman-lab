@@ -1,0 +1,294 @@
+/* =========================================================
+   ROCKETMAN V5 FINAL — STEP 2 / SCENE SYSTEM
+   Import this AFTER globals.css in app/layout.tsx:
+   import "./scene-system.css";
+   ========================================================= */
+
+:root {
+  --rocket-black: #050505;
+  --rocket-cream: #f3f0e9;
+  --rocket-orange: #ff6e00;
+  --rocket-blue: #0c00ff;
+  --rocket-purple: #7a30cf;
+}
+
+/* ---------- GLOBAL BACKGROUND CANVAS ---------- */
+
+.scene-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--rocket-black);
+}
+
+.scene-background-layer {
+  position: absolute;
+  inset: -3%;
+  opacity: 0;
+  transform: scale(1.03);
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+}
+
+/*
+  Keep page content above the global scene background.
+  Put all final homepage scenes inside .scene-deck.
+*/
+.scene-deck {
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
+}
+
+/* ---------- SCENE GEOMETRY ---------- */
+
+.scene {
+  position: relative;
+  width: 100%;
+  overflow: clip;
+  background: transparent !important;
+}
+
+.scene--full {
+  min-height: 100svh;
+}
+
+.scene--content {
+  min-height: auto;
+}
+
+.scene-frame {
+  width: min(1480px, calc(100% - 8vw));
+  margin-inline: auto;
+  min-height: inherit;
+  display: grid;
+  align-items: center;
+  padding-block: clamp(76px, 9vh, 132px);
+  position: relative;
+  z-index: 2;
+}
+
+/*
+  This is deliberately local to each scene.
+  Background morphs globally, while text remains readable
+  even when two scenes touch during the transition.
+*/
+
+.scene[data-theme="black"] {
+  --scene-text: #f3f0e9;
+  --scene-muted: #a2a2a2;
+  --scene-accent: #ff6e00;
+  --scene-line: rgba(243, 240, 233, 0.18);
+}
+
+.scene[data-theme="cream"] {
+  --scene-text: #050505;
+  --scene-muted: #55514c;
+  --scene-accent: #ff6e00;
+  --scene-line: rgba(5, 5, 5, 0.18);
+}
+
+.scene[data-theme="orange"] {
+  --scene-text: #050505;
+  --scene-muted: rgba(5, 5, 5, 0.72);
+  --scene-accent: #f3f0e9;
+  --scene-line: rgba(5, 5, 5, 0.30);
+}
+
+.scene[data-theme="blue"] {
+  --scene-text: #f3f0e9;
+  --scene-muted: rgba(243, 240, 233, 0.74);
+  --scene-accent: #ff6e00;
+  --scene-line: rgba(243, 240, 233, 0.24);
+}
+
+.scene[data-theme="purple"] {
+  --scene-text: #f3f0e9;
+  --scene-muted: rgba(243, 240, 233, 0.76);
+  --scene-accent: #ff6e00;
+  --scene-line: rgba(243, 240, 233, 0.24);
+}
+
+.scene {
+  color: var(--scene-text);
+}
+
+.scene-accent {
+  color: var(--scene-accent);
+}
+
+.scene-muted {
+  color: var(--scene-muted);
+}
+
+.scene-line {
+  border-color: var(--scene-line);
+}
+
+/* ---------- SAFE ART STAGE ---------- */
+
+.scene-art {
+  min-width: 0;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.scene-art img,
+.scene-art svg,
+.scene-art canvas {
+  display: block;
+  width: min(100%, 680px);
+  height: auto;
+  max-height: min(72svh, 760px);
+  object-fit: contain;
+}
+
+/*
+  Any element inside .scene-safe is physically clipped by its scene.
+  This prevents the current V5 problem where art leaks into the next block.
+*/
+.scene-safe {
+  min-width: 0;
+  min-height: 0;
+  overflow: clip;
+}
+
+/* ---------- DEMO / FUTURE GENERAL GRID ---------- */
+
+.scene-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+  gap: clamp(42px, 7vw, 120px);
+  align-items: center;
+}
+
+.scene-split-reverse .scene-copy {
+  order: 2;
+}
+
+.scene-split-reverse .scene-art {
+  order: 1;
+}
+
+.scene-copy {
+  min-width: 0;
+}
+
+.scene-kicker {
+  margin: 0 0 24px;
+  font-family: var(--accent, var(--font-accent), sans-serif);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--scene-accent);
+}
+
+.scene-title {
+  margin: 0;
+  max-width: 1050px;
+  font-family: var(--display, var(--font-display), sans-serif);
+  font-size: clamp(4.4rem, 8vw, 9.2rem);
+  line-height: 0.80;
+  letter-spacing: -0.07em;
+  font-weight: 900;
+}
+
+.scene-title .scene-accent {
+  font-family: var(--accent, var(--font-accent), sans-serif);
+  font-weight: 600;
+}
+
+.scene-copy p:not(.scene-kicker) {
+  width: min(520px, 100%);
+  margin: 38px 0 0;
+  font-size: clamp(1rem, 1.15vw, 1.15rem);
+  line-height: 1.72;
+  color: var(--scene-muted);
+}
+
+/* ---------- ACTIVE THEME HOOKS FOR FIXED UI ---------- */
+
+/*
+  These hooks are intentionally included now.
+  We can use them later for a fixed nav / cursor / progress line.
+*/
+
+html[data-active-theme="cream"] .scroll-progress,
+html[data-active-theme="orange"] .scroll-progress {
+  mix-blend-mode: multiply;
+}
+
+html[data-active-theme="black"] .scroll-progress,
+html[data-active-theme="blue"] .scroll-progress,
+html[data-active-theme="purple"] .scroll-progress {
+  mix-blend-mode: screen;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 1024px) {
+  .scene-frame {
+    width: min(100% - 7vw, 1120px);
+    padding-block: clamp(72px, 8vh, 110px);
+  }
+
+  .scene-split,
+  .scene-split-reverse {
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+
+  .scene-split-reverse .scene-copy,
+  .scene-split-reverse .scene-art {
+    order: initial;
+  }
+
+  .scene-copy {
+    max-width: 850px;
+  }
+
+  .scene-art img,
+  .scene-art svg,
+  .scene-art canvas {
+    width: min(78vw, 610px);
+    max-height: 58svh;
+  }
+}
+
+@media (max-width: 767px) {
+  .scene--full {
+    min-height: 100svh;
+  }
+
+  .scene-frame {
+    width: calc(100% - 36px);
+    padding-block: 76px;
+  }
+
+  .scene-title {
+    font-size: clamp(3.4rem, 16vw, 6rem);
+    line-height: 0.82;
+  }
+
+  .scene-copy p:not(.scene-kicker) {
+    margin-top: 28px;
+    line-height: 1.62;
+  }
+
+  .scene-art img,
+  .scene-art svg,
+  .scene-art canvas {
+    width: min(88vw, 520px);
+    max-height: 48svh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-background-layer {
+    transform: none !important;
+  }
+}
