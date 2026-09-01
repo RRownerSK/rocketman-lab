@@ -4,6 +4,7 @@ import SmoothScroll from "./components/SmoothScroll";
 import SceneController from "./components/SceneController";
 import Scene from "./components/Scene";
 import InfiniteMarquee from "./components/InfiniteMarquee";
+import ProcessScene from "./components/ProcessScene";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -318,6 +319,11 @@ export default function Home() {
               />
             </div>
           </div>
+        </Scene>
+
+        {/* Scene 10 — PROCESS (desktop sticky stage, mobile plain stack) */}
+        <Scene theme="black" id="process" size="content" snap={false} fullBleed>
+          <ProcessScene />
         </Scene>
       </div>
     </main>
