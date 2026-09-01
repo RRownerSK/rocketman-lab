@@ -103,13 +103,6 @@
   color: var(--rocket-blue);
 }
 
-.blueUnderline {
-  text-decoration-line: underline;
-  text-decoration-color: var(--rocket-blue);
-  text-decoration-thickness: 3px;
-  text-underline-offset: 6px;
-}
-
 /* ---------- BRANDS MARQUEE HEADING ---------- */
 
 .brandsHeading {

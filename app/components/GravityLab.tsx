@@ -150,9 +150,13 @@ export default function GravityLab() {
 
       const activeTarget = isTouch || !pointerActive ? idleTarget : target;
 
-      // Translucent clear (instead of full clear) — creates the trail.
-      ctx.fillStyle = "rgba(18, 4, 36, 0.16)";
+      // Fade the previous frame toward transparent (not toward an opaque
+      // color) so the canvas never accumulates into a solid haze that would
+      // bury the core image sitting underneath it — that's the trail.
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.fillStyle = "rgba(0, 0, 0, 0.16)";
       ctx.fillRect(0, 0, width, height);
+      ctx.globalCompositeOperation = "source-over";
 
       // Orbit guide-lines, deformed toward the gravity target.
       ORBIT_RATIOS.forEach((ratio) => {

@@ -241,7 +241,7 @@ export default function Home() {
             <div className="scene-copy">
               <p className="scene-kicker">03 / RAST</p>
               <h2 className="scene-title" data-kinetic>
-                <span className={styles.blueUnderline}>RAST</span>
+                <span className={styles.blueAccent}>RAST</span>
               </h2>
               <p className="scene-kicker">
                 STRATÉGIA • DÁTA • PROCESY • ŠKÁLOVANIE
