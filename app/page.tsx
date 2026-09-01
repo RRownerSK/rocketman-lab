@@ -261,6 +261,64 @@ export default function Home() {
             </div>
           </div>
         </Scene>
+
+        {/* Scene 08 — BEZPLATNÁ KONZULTÁCIA */}
+        <Scene theme="blue">
+          <div className="scene-split">
+            <div className="scene-copy">
+              <p className="scene-kicker">NO STRINGS ATTACHED</p>
+              <h2 className="scene-title" data-kinetic>
+                BEZPLATNÁ
+                <br />
+                <span className="scene-accent">KONZULTÁCIA.</span>
+              </h2>
+              <p data-reveal="up">
+                Najprv pochopíme projekt, problém a cieľ. Krátky call alebo
+                stretnutie, bez záväzkov a bez predajných rečí.
+              </p>
+            </div>
+
+            <div className="scene-art scene-safe" aria-hidden="true" data-tilt>
+              <Image
+                src="/11-consultation-orbit.png"
+                alt=""
+                width={900}
+                height={900}
+                data-parallax="55"
+              />
+            </div>
+          </div>
+        </Scene>
+
+        {/* Scene 09 — JASNÁ CENOVÁ PONUKA */}
+        <Scene theme="cream">
+          <div className="scene-split scene-split-reverse">
+            <div className="scene-copy">
+              <p className="scene-kicker">CLEAR FROM DAY ONE</p>
+              <h2 className="scene-title" data-kinetic>
+                JASNÁ
+                <br />
+                CENOVÁ
+                <br />
+                <span className="scene-accent">PONUKA.</span>
+              </h2>
+              <p data-reveal="up">
+                Pred začiatkom dostanete návrh riešenia, rozsah projektu a
+                cenu. Bez prekvapení po ceste.
+              </p>
+            </div>
+
+            <div className="scene-art scene-safe" aria-hidden="true" data-tilt>
+              <Image
+                src="/12-project-blueprint.png"
+                alt=""
+                width={900}
+                height={900}
+                data-parallax="55"
+              />
+            </div>
+          </div>
+        </Scene>
       </div>
     </main>
   );
