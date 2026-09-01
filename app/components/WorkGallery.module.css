@@ -1,0 +1,123 @@
+.wrapper {
+  position: relative;
+  overflow: clip;
+}
+
+.panel {
+  position: sticky;
+  top: 0;
+  min-height: 100svh;
+  display: grid;
+  align-items: center;
+  border-top: 1px solid rgba(5, 5, 5, 0.08);
+}
+
+.panelInner {
+  width: min(1200px, calc(100% - 8vw));
+  margin-inline: auto;
+  display: grid;
+  gap: 30px;
+}
+
+.panelOrange {
+  background: var(--rocket-orange);
+  color: var(--rocket-black);
+}
+
+.panelBlack {
+  background: var(--rocket-black);
+  color: var(--rocket-cream);
+}
+
+.panelCream {
+  background: var(--rocket-cream);
+  color: var(--rocket-black);
+}
+
+.panelBlue {
+  background: linear-gradient(135deg, var(--rocket-blue) 0%, #2116ff 100%);
+  color: var(--rocket-cream);
+}
+
+.panelPurple {
+  background: linear-gradient(135deg, var(--rocket-purple) 0%, #6123ba 100%);
+  color: var(--rocket-cream);
+}
+
+.number {
+  font-family: var(--accent), sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+
+.placeholder {
+  min-height: min(46vh, 420px);
+  display: grid;
+  place-items: center;
+  border: 2px dashed currentColor;
+  opacity: 0.55;
+  padding: 24px;
+  text-align: center;
+}
+
+.placeholder span {
+  font-family: var(--display), sans-serif;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  font-weight: 900;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.title {
+  margin: 0;
+  max-width: 900px;
+  font-family: var(--display), sans-serif;
+  font-size: clamp(2.6rem, 6vw, 5.4rem);
+  line-height: 0.86;
+  letter-spacing: -0.05em;
+  font-weight: 900;
+}
+
+.tags {
+  margin: 0;
+  font-family: var(--accent), sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.view {
+  justify-self: start;
+  padding-bottom: 4px;
+  border-bottom: 2px solid currentColor;
+  font-family: var(--accent), sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+@media (max-width: 1024px) {
+  .panel {
+    position: relative;
+    top: auto;
+    min-height: auto;
+    padding-block: 70px;
+  }
+
+  .meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}

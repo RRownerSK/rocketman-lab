@@ -5,6 +5,7 @@ import SceneController from "./components/SceneController";
 import Scene from "./components/Scene";
 import InfiniteMarquee from "./components/InfiniteMarquee";
 import ProcessScene from "./components/ProcessScene";
+import WorkGallery from "./components/WorkGallery";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -324,6 +325,27 @@ export default function Home() {
         {/* Scene 10 — PROCESS (desktop sticky stage, mobile plain stack) */}
         <Scene theme="black" id="process" size="content" snap={false} fullBleed>
           <ProcessScene />
+        </Scene>
+
+        {/* Scene 11 — WORK INTRO */}
+        <Scene theme="cream">
+          <div className="scene-copy">
+            <p className="scene-kicker">SELECTED WORK</p>
+            <h2 className="scene-title" data-kinetic>
+              NIE KARTY.
+              <br />
+              <span className="scene-accent">DIGITÁLNE PLAGÁTY.</span>
+            </h2>
+            <p data-reveal="up">
+              Vybrané projekty, pri ktorých sme riešili rozdielne problémy,
+              značky aj ciele.
+            </p>
+          </div>
+        </Scene>
+
+        {/* Scene 12 — SELECTED WORK gallery / poster stack */}
+        <Scene theme="cream" id="work" size="content" snap={false} fullBleed>
+          <WorkGallery />
         </Scene>
       </div>
     </main>
