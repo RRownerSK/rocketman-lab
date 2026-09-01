@@ -6,6 +6,7 @@ import Scene from "./components/Scene";
 import InfiniteMarquee from "./components/InfiniteMarquee";
 import ProcessScene from "./components/ProcessScene";
 import WorkGallery from "./components/WorkGallery";
+import GravityLab from "./components/GravityLab";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -417,6 +418,27 @@ export default function Home() {
                 </div>
               </div>
             </article>
+          </div>
+        </Scene>
+
+        {/* Scene 14 — PLAYGROUND / GRAVITY LAB */}
+        <Scene theme="purple">
+          <div className="scene-split">
+            <div className="scene-copy">
+              <p className="scene-kicker">14 / PLAYGROUND</p>
+              <h2 className="scene-title" data-kinetic>
+                GRAVITY
+                <br />
+                IS JUST A
+                <br />
+                <span className="scene-accent">SUGGESTION.</span>
+              </h2>
+              <p data-reveal="up">MOVE YOUR CURSOR. BREAK SOME RULES.</p>
+            </div>
+
+            <div className="scene-art scene-safe" aria-hidden="true">
+              <GravityLab />
+            </div>
           </div>
         </Scene>
       </div>

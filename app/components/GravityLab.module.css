@@ -1,0 +1,39 @@
+.stage {
+  position: relative;
+  width: min(560px, 80vw);
+  aspect-ratio: 1 / 1;
+  margin-inline: auto;
+  display: grid;
+  place-items: center;
+}
+
+/*
+  Selectors are scoped as ".stage .core" / ".stage .canvas" (two classes)
+  so they reliably beat the global ".scene-art img/canvas" sizing rules
+  from scene-system.css when GravityLab sits inside a .scene-art slot.
+*/
+.stage .core {
+  position: relative;
+  z-index: 1;
+  width: min(46%, 260px);
+  max-height: none;
+  height: auto;
+  pointer-events: none;
+  filter: drop-shadow(0 0 40px rgba(255, 110, 0, 0.35));
+}
+
+.stage .canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  touch-action: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage .canvas {
+    touch-action: auto;
+  }
+}
