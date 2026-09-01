@@ -1,0 +1,111 @@
+.marquee {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding: 32px 0 38px;
+}
+
+.marqueeDark {
+  background: var(--rocket-black);
+  color: var(--rocket-cream);
+}
+
+.marqueeLight {
+  background: var(--rocket-cream);
+  color: var(--rocket-black);
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  gap: 32px;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee-scroll var(--marquee-duration, 30s) linear infinite;
+}
+
+.trackReverse {
+  animation-direction: reverse;
+}
+
+.trackText {
+  font-family: var(--display), sans-serif;
+  font-size: clamp(3.4rem, 7vw, 7.6rem);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+}
+
+.item {
+  display: block;
+  flex-shrink: 0;
+}
+
+.dot {
+  display: block;
+  flex-shrink: 0;
+  color: var(--rocket-orange);
+  font-size: 0.5em;
+  transform: translateY(-0.1em);
+}
+
+.trackLogo {
+  gap: 64px;
+}
+
+.trackLogo .item {
+  font-family: var(--accent), sans-serif;
+  font-size: clamp(1.1rem, 1.6vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.42;
+  filter: grayscale(1);
+  transition: opacity 0.25s ease, filter 0.25s ease;
+}
+
+@media (pointer: fine) {
+  .trackLogo .item:hover {
+    opacity: 1;
+    filter: grayscale(0);
+  }
+
+  .marquee:hover .track {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 850px) {
+  .marquee {
+    padding: 22px 0 26px;
+  }
+
+  .trackText {
+    font-size: clamp(2.6rem, 12vw, 4.4rem);
+    gap: 20px;
+  }
+
+  .trackLogo {
+    gap: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+
+  .marquee {
+    overflow-x: auto;
+  }
+}

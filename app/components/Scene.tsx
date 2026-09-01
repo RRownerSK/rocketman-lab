@@ -11,6 +11,7 @@ type SceneProps = {
   frameClassName?: string;
   snap?: boolean;
   size?: "full" | "content";
+  fullBleed?: boolean;
 };
 
 export default function Scene({
@@ -21,6 +22,7 @@ export default function Scene({
   frameClassName = "",
   snap = true,
   size = "full",
+  fullBleed = false,
 }: SceneProps) {
   return (
     <section
@@ -30,7 +32,13 @@ export default function Scene({
       data-theme={theme}
       data-snap={snap ? "true" : "false"}
     >
-      <div className={`scene-frame ${frameClassName}`.trim()}>{children}</div>
+      <div
+        className={`scene-frame ${
+          fullBleed ? "scene-frame--full-bleed" : ""
+        } ${frameClassName}`.trim()}
+      >
+        {children}
+      </div>
     </section>
   );
 }

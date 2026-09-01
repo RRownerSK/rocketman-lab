@@ -127,6 +127,13 @@
   border-color: var(--scene-line);
 }
 
+.scene-frame--full-bleed {
+  width: 100%;
+  padding-inline: 0;
+  padding-block: 0;
+  display: block;
+}
+
 /* ---------- SAFE ART STAGE ---------- */
 
 .scene-art {
@@ -289,6 +296,52 @@ html[data-active-theme="purple"] .scroll-progress {
 
 @media (prefers-reduced-motion: reduce) {
   .scene-background-layer {
+    transform: none !important;
+  }
+}
+
+/* ---------- MOTION HOOKS (used by MotionEffects.tsx) ---------- */
+
+[data-magnetic],
+[data-kinetic],
+[data-tilt],
+[data-parallax] {
+  will-change: transform;
+}
+
+[data-tilt] {
+  transform-style: preserve-3d;
+}
+
+.custom-cursor {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--rocket-orange);
+  pointer-events: none;
+  mix-blend-mode: difference;
+  opacity: 0.95;
+  will-change: transform;
+}
+
+@media (pointer: coarse) {
+  .custom-cursor {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .custom-cursor {
+    display: none;
+  }
+
+  [data-kinetic],
+  [data-tilt],
+  [data-parallax] {
     transform: none !important;
   }
 }

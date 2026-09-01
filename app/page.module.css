@@ -1,0 +1,292 @@
+/* =========================================================
+   HOMEPAGE — page-specific styles
+   Shared scene primitives (scene-split, scene-copy, scene-art,
+   scene-title, scene-kicker, scene-accent) live in scene-system.css.
+   This file only holds homepage-only chrome: nav, buttons, cursor,
+   the method/work sticky stacks and the footer.
+   ========================================================= */
+
+.nav {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 90px;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2.4vw, 38px);
+  font-family: var(--accent), sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.navLinks a {
+  transition: opacity 0.2s ease;
+}
+
+.navLinks a:hover {
+  opacity: 0.62;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 50px;
+  padding: 0 24px;
+  border-radius: 999px;
+  font-family: var(--accent), sans-serif;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.buttonOrange {
+  background: var(--rocket-orange);
+  color: var(--rocket-black);
+}
+
+.buttonBlack {
+  background: var(--rocket-black);
+  color: var(--rocket-cream);
+}
+
+.buttonCream {
+  background: var(--rocket-cream);
+  color: var(--rocket-black);
+}
+
+.textLink {
+  display: inline-block;
+  padding-bottom: 4px;
+  border-bottom: 1px solid currentColor;
+  font-family: var(--accent), sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+/* ---------- HERO ---------- */
+
+.heroActions {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.heroFoot {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  padding-block: 26px 0;
+  font-family: var(--accent), sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--rocket-orange);
+}
+
+/* ---------- ACCENT HOOK (RAST scene) ---------- */
+
+.blueAccent {
+  color: var(--rocket-blue);
+}
+
+.blueUnderline {
+  text-decoration-color: var(--rocket-blue);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
+}
+
+/* ---------- METHOD STACK (BUILD / LAUNCH / SCALE) ---------- */
+
+.methodWrapper {
+  position: relative;
+  overflow: clip;
+}
+
+.methodStep {
+  position: sticky;
+  top: 0;
+  min-height: 100svh;
+  display: grid;
+  align-items: center;
+  background: var(--rocket-black);
+  border-top: 1px solid rgba(243, 240, 233, 0.14);
+}
+
+.methodStepInner {
+  width: min(1480px, calc(100% - 8vw));
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 8vw;
+  align-items: center;
+  padding-block: clamp(60px, 8vh, 100px);
+}
+
+.methodStepReverse .methodArt {
+  order: 2;
+}
+
+.methodStepReverse .methodCopy {
+  order: 1;
+}
+
+.methodArt {
+  display: grid;
+  place-items: center;
+}
+
+.methodArt img {
+  width: min(480px, 32vw);
+  height: auto;
+}
+
+.methodCopy > span {
+  font-family: var(--accent), sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: var(--rocket-orange);
+}
+
+.methodCopy h3 {
+  margin: 22px 0 28px;
+  max-width: 780px;
+  font-family: var(--display), sans-serif;
+  font-size: clamp(2.6rem, 5.4vw, 6rem);
+  line-height: 0.86;
+  letter-spacing: -0.055em;
+  font-weight: 900;
+}
+
+.methodCopy p {
+  max-width: 500px;
+  margin: 0;
+  color: rgba(243, 240, 233, 0.72);
+  line-height: 1.72;
+}
+
+/* ---------- FOOTER ---------- */
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  gap: 30px;
+  min-height: 190px;
+}
+
+.footerGrid > img {
+  width: 150px;
+}
+
+.footerSlogan {
+  margin: 0;
+  text-align: center;
+  font-family: var(--accent), sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.footerNav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 22px;
+  font-family: var(--accent), sans-serif;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+}
+
+.footerBottom {
+  min-height: 70px;
+  border-top: 1px solid rgba(243, 240, 233, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  color: rgba(243, 240, 233, 0.5);
+  font-size: 0.62rem;
+  letter-spacing: 0.07em;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 1024px) {
+  .methodStepInner {
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+
+  .methodStepReverse .methodArt,
+  .methodStepReverse .methodCopy {
+    order: initial;
+  }
+
+  .methodArt img {
+    width: min(70vw, 420px);
+  }
+}
+
+@media (max-width: 850px) {
+  .nav {
+    min-height: 74px;
+  }
+
+  .navLinks {
+    gap: 13px;
+    font-size: 0.56rem;
+  }
+
+  .navLinks a:nth-child(3) {
+    display: none;
+  }
+
+  .heroFoot {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-bottom: 26px;
+  }
+
+  .methodStep {
+    position: relative;
+    top: auto;
+    min-height: auto;
+    padding-block: 7vh;
+  }
+
+  .footerGrid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    padding-block: 40px;
+  }
+
+  .footerNav {
+    justify-content: center;
+  }
+
+  .footerBottom {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .navLinks a:nth-child(1) {
+    display: none;
+  }
+}
