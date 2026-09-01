@@ -110,6 +110,12 @@
   text-underline-offset: 6px;
 }
 
+/* ---------- BRANDS MARQUEE HEADING ---------- */
+
+.brandsHeading {
+  padding: 40px min(4vw, 64px) 0;
+}
+
 /* ---------- METHOD STACK (BUILD / LAUNCH / SCALE) ---------- */
 
 .methodWrapper {

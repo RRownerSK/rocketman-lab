@@ -7,6 +7,7 @@ import InfiniteMarquee from "./components/InfiniteMarquee";
 import ProcessScene from "./components/ProcessScene";
 import WorkGallery from "./components/WorkGallery";
 import GravityLab from "./components/GravityLab";
+import TrustedBrands from "./components/TrustedBrands";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -438,6 +439,81 @@ export default function Home() {
 
             <div className="scene-art scene-safe" aria-hidden="true">
               <GravityLab />
+            </div>
+          </div>
+        </Scene>
+
+        {/* Scene 15 — BRANDS WE'VE WORKED WITH */}
+        <Scene theme="black" size="content" snap={false} fullBleed>
+          <div className={styles.brandsHeading}>
+            <p className="scene-kicker">BRANDS WE&apos;VE WORKED WITH</p>
+          </div>
+          <TrustedBrands />
+        </Scene>
+
+        {/* Scene 16 — FINAL CTA */}
+        <Scene theme="orange" id="contact">
+          <div className="scene-split">
+            <div className="scene-copy">
+              <p className="scene-kicker">HAVE SOMETHING WORTH BUILDING?</p>
+              <h2 className="scene-title" data-kinetic>
+                READY
+                <br />
+                FOR
+                <br />
+                <span className="scene-accent">LAUNCH?</span>
+              </h2>
+              <p data-reveal="up">
+                Prvé stretnutie je bezplatné. Povedzte nám, čo chcete
+                postaviť, a pripravíme ďalší krok.
+              </p>
+              <div className={styles.heroActions}>
+                <a
+                  className={`${styles.button} ${styles.buttonBlack}`}
+                  href="mailto:info@rocketman.digital"
+                  data-magnetic
+                >
+                  START A PROJECT ↗
+                </a>
+              </div>
+            </div>
+
+            <div className="scene-art scene-safe" aria-hidden="true" data-tilt>
+              <Image
+                src="/01-astronaut-launch.png"
+                alt=""
+                width={850}
+                height={850}
+                data-parallax="50"
+              />
+            </div>
+          </div>
+        </Scene>
+
+        {/* Scene 17 — FOOTER */}
+        <Scene theme="black" size="content" snap={false} id="footer">
+          <div>
+            <div className={styles.footerGrid}>
+              <Image
+                src="/rocketman-logo.svg"
+                alt="Rocketman"
+                width={150}
+                height={42}
+              />
+              <p className={styles.footerSlogan}>
+                THE TENDENCY TO{" "}
+                <span className="scene-accent">GROW.</span>
+              </p>
+              <nav className={styles.footerNav} aria-label="Pätičková navigácia">
+                <a href="#services">SLUŽBY</a>
+                <a href="#work">WORK</a>
+                <a href="#contact">KONTAKT</a>
+              </nav>
+            </div>
+
+            <div className={styles.footerBottom}>
+              <span>© 2026 ROCKETMAN.DIGITAL</span>
+              <span>WEB / MARKETING / GROWTH</span>
             </div>
           </div>
         </Scene>
