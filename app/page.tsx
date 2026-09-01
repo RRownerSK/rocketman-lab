@@ -149,6 +149,118 @@ export default function Home() {
             durationSeconds={26}
           />
         </Scene>
+
+        {/* Scene 04 — WHAT WE DO */}
+        <Scene theme="cream" id="services">
+          <div className="scene-split">
+            <div className="scene-copy">
+              <p className="scene-kicker">WHAT WE DO</p>
+              <h2 className="scene-title" data-kinetic>
+                TRI SMERY.
+                <br />
+                <span className="scene-accent">JEDEN CIEĽ.</span>
+              </h2>
+            </div>
+
+            <div className="scene-copy" data-reveal="right">
+              <p>
+                Web, marketing a rast nevnímame ako tri oddelené služby.
+                Spájame ich do jedného systému.
+              </p>
+              <p>
+                Cieľ je jednoduchý: aby značka lepšie vyzerala, lepšie
+                fungovala a mala kam rásť.
+              </p>
+            </div>
+          </div>
+        </Scene>
+
+        {/* Scene 05 — WEB */}
+        <Scene theme="black">
+          <div className="scene-split">
+            <div className="scene-copy">
+              <p className="scene-kicker">01 / WEB</p>
+              <h2 className="scene-title" data-kinetic>
+                WEB
+              </h2>
+              <p className="scene-kicker">
+                WEBY • E-SHOPY • AUTOMATIZÁCIE • AI RIEŠENIA
+              </p>
+              <p data-reveal="up">
+                Digitálne priestory s jasnou logikou. Od jednoduchej
+                prezentačnej stránky až po e-shop a custom riešenia.
+              </p>
+            </div>
+
+            <div className="scene-art scene-safe" aria-hidden="true" data-tilt>
+              <Image
+                src="/03-web-ui-orbit.png"
+                alt=""
+                width={850}
+                height={850}
+                data-parallax="55"
+              />
+            </div>
+          </div>
+        </Scene>
+
+        {/* Scene 06 — MARKETING */}
+        <Scene theme="orange">
+          <div className="scene-split scene-split-reverse">
+            <div className="scene-copy">
+              <p className="scene-kicker">02 / MARKETING</p>
+              <h2 className="scene-title" data-kinetic>
+                MARKETING
+              </h2>
+              <p className="scene-kicker">BRAND • SOCIAL • KAMPANE • SEO</p>
+              <p data-reveal="up">
+                Komunikácia, ktorá má hlas a charakter. Od vizuálnej identity
+                cez obsah až po kampane postavené na výsledkoch.
+              </p>
+            </div>
+
+            <div className="scene-art scene-safe" aria-hidden="true" data-tilt>
+              <Image
+                src="/04-marketing-megaphone.png"
+                alt=""
+                width={850}
+                height={850}
+                data-parallax="55"
+              />
+            </div>
+          </div>
+        </Scene>
+
+        {/* Scene 07 — RAST (cream base, strong blue accent moment) */}
+        <Scene theme="cream">
+          <div className="scene-split">
+            <div className="scene-copy">
+              <p className="scene-kicker">03 / RAST</p>
+              <h2 className="scene-title" data-kinetic>
+                <span className={styles.blueUnderline}>RAST</span>
+              </h2>
+              <p className="scene-kicker">
+                STRATÉGIA • DÁTA • PROCESY • ŠKÁLOVANIE
+              </p>
+              <p data-reveal="up">
+                Rast nie je náhoda. Hľadáme slabé miesta, zjednodušujeme
+                procesy a vytvárame{" "}
+                <span className={styles.blueAccent}>systém pripravený</span>{" "}
+                na ďalší krok.
+              </p>
+            </div>
+
+            <div className="scene-art scene-safe" aria-hidden="true" data-tilt>
+              <Image
+                src="/05-growth-rocket-analytics.png"
+                alt=""
+                width={850}
+                height={850}
+                data-parallax="55"
+              />
+            </div>
+          </div>
+        </Scene>
       </div>
     </main>
   );
