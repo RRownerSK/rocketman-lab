@@ -347,6 +347,78 @@ export default function Home() {
         <Scene theme="cream" id="work" size="content" snap={false} fullBleed>
           <WorkGallery />
         </Scene>
+
+        {/*
+          Scene 13 — THE ROCKETMAN METHOD (BUILD / LAUNCH / SCALE)
+          Sticky stack wrapped in overflow:clip so it is guaranteed to end
+          exactly at its own bottom edge and never bleed into Playground.
+        */}
+        <Scene theme="black" size="content" snap={false} fullBleed>
+          <div className={styles.methodWrapper}>
+            <article className={styles.methodStep}>
+              <div className={styles.methodStepInner}>
+                <div className={styles.methodArt} aria-hidden="true" data-tilt>
+                  <Image
+                    src="/06-build-modules-isometric.png"
+                    alt=""
+                    width={650}
+                    height={650}
+                  />
+                </div>
+                <div className={styles.methodCopy}>
+                  <span>THE ROCKETMAN METHOD — 01 / BUILD</span>
+                  <h3>POSTAVÍME PEVNÝ ZÁKLAD.</h3>
+                  <p>
+                    Štruktúra, obsah, dizajn a technológia musia fungovať ako
+                    jeden systém. Najprv logika, potom efekty.
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <article className={`${styles.methodStep} ${styles.methodStepReverse}`}>
+              <div className={styles.methodStepInner}>
+                <div className={styles.methodArt} aria-hidden="true" data-tilt>
+                  <Image
+                    src="/07-launch-burst-arrow.png"
+                    alt=""
+                    width={650}
+                    height={650}
+                  />
+                </div>
+                <div className={styles.methodCopy}>
+                  <span>02 / LAUNCH</span>
+                  <h3>SPUSTÍME TO MEDZI ĽUDÍ.</h3>
+                  <p>
+                    Testovanie, výkon, analytika a ostrý štart. Launch je
+                    moment, keď dizajn prestáva byť návrhom a začne pracovať.
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <article className={styles.methodStep}>
+              <div className={styles.methodStepInner}>
+                <div className={styles.methodArt} aria-hidden="true" data-tilt>
+                  <Image
+                    src="/08-growth-chart-orbit.png"
+                    alt=""
+                    width={650}
+                    height={650}
+                  />
+                </div>
+                <div className={styles.methodCopy}>
+                  <span>03 / SCALE</span>
+                  <h3>MERIAME. UPRAVUJEME. RASTIEME.</h3>
+                  <p>
+                    Dáta, nové funkcie, automatizácie a ďalšie kroky podľa
+                    toho, čo reálne funguje. Nie podľa pocitu.
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </Scene>
       </div>
     </main>
   );
