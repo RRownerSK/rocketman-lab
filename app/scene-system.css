@@ -127,8 +127,17 @@
   border-color: var(--scene-line);
 }
 
-.scene-frame--full-bleed {
+/*
+  Scoped with .scene on purpose: the responsive .scene-frame overrides further
+  down are single-class rules declared after this one, so a bare
+  .scene-frame--full-bleed loses the cascade below 1024px and the strip ends up
+  inset by the frame gutter. The extra class keeps full-bleed full-bleed at
+  every width.
+*/
+.scene .scene-frame--full-bleed {
   width: 100%;
+  max-width: none;
+  margin-inline: 0;
   padding-inline: 0;
   padding-block: 0;
   display: block;
@@ -324,11 +333,17 @@ html[data-active-theme="purple"] .scroll-progress {
   background: var(--rocket-orange);
   pointer-events: none;
   mix-blend-mode: difference;
-  opacity: 0.95;
+  /*
+    Starts invisible: until the first mousemove the dot is parked at 0,0, and
+    difference-blended against the cream scenes the orange reads as a bright
+    blue speck in the top-left corner. MotionEffects fades it in on first move.
+  */
+  opacity: 0;
   will-change: transform;
 }
 
-@media (pointer: coarse) {
+/* Touch devices, and narrow viewports where a fake cursor makes no sense. */
+@media (pointer: coarse), (max-width: 1024px) {
   .custom-cursor {
     display: none;
   }

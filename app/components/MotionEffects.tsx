@@ -223,9 +223,18 @@ export default function MotionEffects() {
             ease: "power3",
           });
 
+          // The dot is CSS-hidden until it has a real position, otherwise it
+          // sits blended at 0,0 in the corner until the pointer first moves.
+          let revealed = false;
+
           const onMove = (event: MouseEvent) => {
             xTo(event.clientX);
             yTo(event.clientY);
+
+            if (!revealed) {
+              revealed = true;
+              gsap.set(cursor, { opacity: 0.95 });
+            }
           };
 
           window.addEventListener("mousemove", onMove);
