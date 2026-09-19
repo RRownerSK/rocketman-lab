@@ -101,6 +101,10 @@ const PROJECTS: {
   Digital-poster stack: each project is a full-height sticky panel, so the
   next project slides in and covers the previous one — always exactly one
   clearly readable active project, never a plain card grid.
+
+  Inside a panel the screenshot and the copy sit side by side and swap sides
+  on every other project, so the shot gets most of the width instead of being
+  a small centred block under the title.
 */
 export default function WorkGallery() {
   return (
@@ -109,8 +113,8 @@ export default function WorkGallery() {
         const alt = `Ukážka webu — ${project.name}`;
 
         /* Kept in sync with the max-width rules in WorkGallery.module.css. */
-        const desktopSizes = "760px";
-        const mobileSizes = "(max-width: 405px) 74vw, 300px";
+        const desktopSizes = "(max-width: 1600px) 56vw, 900px";
+        const mobileSizes = "(max-width: 440px) 78vw, 340px";
 
         const {
           props: { srcSet: desktopSrcSet },
@@ -132,12 +136,31 @@ export default function WorkGallery() {
 
         return (
           <article
-            className={`${styles.panel} ${ACCENT_CLASS[project.accent]}`}
+            className={`${styles.panel} ${ACCENT_CLASS[project.accent]} ${
+              index % 2 === 1 ? styles.panelReverse : ""
+            }`.trim()}
             key={project.number}
             style={{ zIndex: index + 1 }}
           >
             <div className={styles.panelInner}>
-              <span className={styles.number}>{project.number} / 06</span>
+              <div className={styles.copy}>
+                <span className={styles.number}>{project.number} / 06</span>
+
+                <h3 className={styles.title}>{project.name}</h3>
+
+                <p className={styles.tags}>
+                  {project.tags}
+                  {project.url ? ` — ${project.url}` : ""}
+                </p>
+
+                <a
+                  className={styles.view}
+                  href="#"
+                  aria-label={`Otvoriť projekt ${project.name}`}
+                >
+                  VIEW ↗
+                </a>
+              </div>
 
               <picture
                 className={styles.shot}
@@ -163,22 +186,6 @@ export default function WorkGallery() {
                 />
                 <img {...imgProps} alt={alt} />
               </picture>
-
-              <div className={styles.meta}>
-                <h3 className={styles.title}>{project.name}</h3>
-                <p className={styles.tags}>
-                  {project.tags}
-                  {project.url ? ` — ${project.url}` : ""}
-                </p>
-              </div>
-
-              <a
-                className={styles.view}
-                href="#"
-                aria-label={`Otvoriť projekt ${project.name}`}
-              >
-                VIEW ↗
-              </a>
             </div>
           </article>
         );

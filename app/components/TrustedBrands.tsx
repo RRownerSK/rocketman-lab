@@ -31,7 +31,6 @@ export default function TrustedBrands() {
         />
       ))}
       ariaLabel="Značky, s ktorými sme spolupracovali"
-      theme="dark"
       variant="logo"
       durationSeconds={38}
     />

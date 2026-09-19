@@ -144,12 +144,11 @@ export default function Home() {
         </Scene>
 
         {/* SERVICES MARQUEE — real continuous strip, not scroll-linked */}
-        <Scene theme="black" size="content" snap={false} fullBleed>
+        <Scene theme="black" size="content" fullBleed>
           <InfiniteMarquee
             words={["WEB", "E-SHOP", "BRANDING", "SEO", "AUTOMATION", "AI"]}
             separator="✦"
             ariaLabel="Naše služby"
-            theme="dark"
             durationSeconds={26}
           />
         </Scene>
@@ -325,7 +324,7 @@ export default function Home() {
         </Scene>
 
         {/* Scene 10 — PROCESS (desktop sticky stage, mobile plain stack) */}
-        <Scene theme="black" id="process" size="content" snap={false} fullBleed>
+        <Scene theme="black" id="process" size="content" fullBleed>
           <ProcessScene />
         </Scene>
 
@@ -346,7 +345,7 @@ export default function Home() {
         </Scene>
 
         {/* Scene 12 — SELECTED WORK gallery / poster stack */}
-        <Scene theme="cream" id="work" size="content" snap={false} fullBleed>
+        <Scene theme="cream" id="work" size="content" fullBleed>
           <WorkGallery />
         </Scene>
 
@@ -355,7 +354,7 @@ export default function Home() {
           Sticky stack wrapped in overflow:clip so it is guaranteed to end
           exactly at its own bottom edge and never bleed into Playground.
         */}
-        <Scene theme="black" size="content" snap={false} fullBleed>
+        <Scene theme="black" size="content" fullBleed>
           <div className={styles.methodWrapper}>
             <article className={styles.methodStep}>
               <div className={styles.methodStepInner}>
@@ -444,7 +443,7 @@ export default function Home() {
         </Scene>
 
         {/* Scene 15 — BRANDS WE'VE WORKED WITH */}
-        <Scene theme="black" size="content" snap={false} fullBleed>
+        <Scene theme="black" size="content" fullBleed>
           <div className={styles.brandsHeading}>
             <p className="scene-kicker">BRANDS WE&apos;VE WORKED WITH</p>
           </div>
@@ -491,7 +490,7 @@ export default function Home() {
         </Scene>
 
         {/* Scene 17 — FOOTER */}
-        <Scene theme="black" size="content" snap={false} id="footer">
+        <Scene theme="black" size="content" id="footer">
           <div>
             <div className={styles.footerGrid}>
               <Image

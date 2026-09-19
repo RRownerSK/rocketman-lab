@@ -9,7 +9,6 @@ type InfiniteMarqueeProps = {
   /* Pre-rendered nodes for the logo strip. Takes precedence over words. */
   items?: ReactNode[];
   ariaLabel: string;
-  theme?: "dark" | "light";
   variant?: "text" | "logo";
   separator?: string;
   durationSeconds?: number;
@@ -24,7 +23,6 @@ export default function InfiniteMarquee({
   words,
   items,
   ariaLabel,
-  theme = "dark",
   variant = "text",
   separator,
   durationSeconds = 30,
@@ -41,13 +39,7 @@ export default function InfiniteMarquee({
   } as CSSProperties;
 
   return (
-    <div
-      className={`${styles.marquee} ${
-        theme === "light" ? styles.marqueeLight : styles.marqueeDark
-      }`}
-      role="group"
-      aria-label={ariaLabel}
-    >
+    <div className={styles.marquee} role="group" aria-label={ariaLabel}>
       <div
         className={`${styles.track} ${
           variant === "logo" ? styles.trackLogo : styles.trackText

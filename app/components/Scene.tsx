@@ -9,7 +9,6 @@ type SceneProps = {
   children: ReactNode;
   className?: string;
   frameClassName?: string;
-  snap?: boolean;
   size?: "full" | "content";
   fullBleed?: boolean;
 };
@@ -20,7 +19,6 @@ export default function Scene({
   children,
   className = "",
   frameClassName = "",
-  snap = true,
   size = "full",
   fullBleed = false,
 }: SceneProps) {
@@ -30,7 +28,6 @@ export default function Scene({
       className={`scene scene--${size} ${className}`.trim()}
       data-scene
       data-theme={theme}
-      data-snap={snap ? "true" : "false"}
     >
       <div
         className={`scene-frame ${

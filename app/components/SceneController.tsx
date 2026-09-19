@@ -139,62 +139,13 @@ export default function SceneController() {
       })
     );
 
-    const mm = gsap.matchMedia();
-
-    mm.add(
-      "(min-width: 1025px) and (prefers-reduced-motion: no-preference)",
-      () => {
-        let snapPoints: number[] = [];
-
-        const calculateSnapPoints = () => {
-          const maxScroll = ScrollTrigger.maxScroll(window);
-
-          if (maxScroll <= 0) {
-            snapPoints = [0];
-            return;
-          }
-
-          snapPoints = scenes
-            .filter((scene) => scene.dataset.snap !== "false")
-            .map((scene) =>
-              gsap.utils.clamp(0, 1, scene.offsetTop / maxScroll)
-            )
-            .filter(
-              (point, index, all) =>
-                index === 0 || Math.abs(point - all[index - 1]) > 0.002
-            );
-        };
-
-        calculateSnapPoints();
-
-        const snapTrigger = ScrollTrigger.create({
-          start: 0,
-          end: "max",
-          snap: {
-            snapTo: (progress) =>
-              snapPoints.length
-                ? gsap.utils.snap(snapPoints, progress)
-                : progress,
-            delay: 0.12,
-            duration: {
-              min: 0.16,
-              max: 0.48,
-            },
-            ease: "power2.inOut",
-            inertia: false,
-          },
-        });
-
-        const onRefresh = () => calculateSnapPoints();
-
-        ScrollTrigger.addEventListener("refresh", onRefresh);
-
-        return () => {
-          ScrollTrigger.removeEventListener("refresh", onRefresh);
-          snapTrigger.kill();
-        };
-      }
-    );
+    /*
+      No scroll snapping. It used to run as one global trigger whose snap
+      points were the tops of full-height scenes only, so anywhere over a
+      short interstitial — either marquee — or inside a long one — the work
+      gallery, the process stack — the nearest point was a whole section away
+      and the page yanked you off whatever you were trying to read.
+    */
 
     const refreshTimer = window.setTimeout(() => {
       ScrollTrigger.refresh();
@@ -203,7 +154,6 @@ export default function SceneController() {
     return () => {
       window.clearTimeout(refreshTimer);
       sceneTriggers.forEach((trigger) => trigger.kill());
-      mm.revert();
 
       delete document.documentElement.dataset.activeTheme;
 

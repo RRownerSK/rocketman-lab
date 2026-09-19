@@ -1,18 +1,16 @@
+/*
+  Deliberately transparent. The strip used to paint its own opaque
+  --rocket-black, which sat on top of the globally morphing scene background
+  and left a hard black band across every colour transition. The scene it
+  lives in owns the background; the strip only borrows its text colour.
+*/
 .marquee {
   position: relative;
   overflow: hidden;
   width: 100%;
   padding: 32px 0 38px;
-}
-
-.marqueeDark {
-  background: var(--rocket-black);
-  color: var(--rocket-cream);
-}
-
-.marqueeLight {
-  background: var(--rocket-cream);
-  color: var(--rocket-black);
+  background: transparent;
+  color: inherit;
 }
 
 .track {

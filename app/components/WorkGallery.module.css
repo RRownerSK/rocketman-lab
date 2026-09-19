@@ -12,11 +12,34 @@
   border-top: 1px solid rgba(5, 5, 5, 0.08);
 }
 
+/*
+  Copy narrow, screenshot wide. The shot column takes the larger share so the
+  device frame reads at close to full size instead of sitting small and
+  centred under the title.
+*/
 .panelInner {
-  width: min(1200px, calc(100% - 8vw));
+  width: min(1480px, calc(100% - 8vw));
   margin-inline: auto;
   display: grid;
-  gap: 30px;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+  gap: clamp(40px, 5vw, 92px);
+  align-items: center;
+}
+
+/*
+  The track has to be mirrored too, not just the visual order: `order` alone
+  would drop the screenshot into the narrow 0.72fr cell and shrink it by half.
+*/
+.panelReverse .panelInner {
+  grid-template-columns: minmax(0, 1.28fr) minmax(0, 0.72fr);
+}
+
+.panelReverse .copy {
+  order: 2;
+}
+
+.panelReverse .shot {
+  order: 1;
 }
 
 .panelOrange {
@@ -44,6 +67,13 @@
   color: var(--rocket-cream);
 }
 
+.copy {
+  min-width: 0;
+  display: grid;
+  justify-items: start;
+  gap: 22px;
+}
+
 .number {
   font-family: var(--accent), sans-serif;
   font-weight: 800;
@@ -54,49 +84,31 @@
 
 /*
   One <picture> holds both crops: landscape on desktop, portrait below 1025px.
-  The box is sized from a definite width plus an explicit aspect-ratio (fed in
-  per project as a custom property) rather than from the image's intrinsic
-  size. A lazy image left at width:auto/height:auto measures 0x0 until it
-  loads, never intersects the viewport, and so never loads at all.
+  The box is sized from a definite width plus an explicit per-project
+  aspect-ratio. Left at width:auto/height:auto a lazy image measures 0x0 until
+  it loads, never intersects the viewport, and so never loads at all.
 */
 .shot {
   display: grid;
   place-items: center;
+  min-width: 0;
   min-height: 0;
 }
 
 .shot img {
   display: block;
   width: 100%;
-  /* Every mobile crop is 880 wide; the svh term keeps the old placeholder's
-     height-driven sizing so a short window shrinks the shot instead of
-     clipping the panel. */
-  max-width: min(74vw, 300px, calc(62svh * 0.522));
+  /* Desktop crops are all 1720x939 — ratio 1.832. The svh term keeps a tall
+     shot from outgrowing its panel on a short window. */
+  max-width: min(100%, calc(74svh * 1.832));
   height: auto;
-  aspect-ratio: var(--shot-ratio-mobile);
-}
-
-@media (min-width: 1025px) {
-  .shot img {
-    /* Desktop crops are all 1720x939 — ratio 1.832. */
-    max-width: min(760px, calc(46svh * 1.832));
-    aspect-ratio: var(--shot-ratio-desktop);
-  }
-}
-
-.meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 20px;
+  aspect-ratio: var(--shot-ratio-desktop);
 }
 
 .title {
   margin: 0;
-  max-width: 900px;
   font-family: var(--display), sans-serif;
-  font-size: clamp(2.6rem, 6vw, 5.4rem);
+  font-size: clamp(2.6rem, 4.4vw, 4.8rem);
   line-height: 0.86;
   letter-spacing: -0.05em;
   font-weight: 900;
@@ -113,7 +125,6 @@
 }
 
 .view {
-  justify-self: start;
   padding-bottom: 4px;
   border-bottom: 2px solid currentColor;
   font-family: var(--accent), sans-serif;
@@ -129,9 +140,20 @@
     padding-block: 70px;
   }
 
-  .meta {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+  /* Portrait crop from here down — copy on top, shot below, no side swap. */
+  .panelInner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 34px;
+  }
+
+  .panelReverse .copy,
+  .panelReverse .shot {
+    order: initial;
+  }
+
+  .shot img {
+    /* Every mobile crop is 880 wide — ratio 0.522. */
+    max-width: min(78vw, 340px, calc(64svh * 0.522));
+    aspect-ratio: var(--shot-ratio-mobile);
   }
 }
