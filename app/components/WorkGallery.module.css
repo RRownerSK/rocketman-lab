@@ -52,22 +52,36 @@
   font-size: 0.78rem;
 }
 
-.placeholder {
-  min-height: min(46vh, 420px);
+/*
+  One <picture> holds both crops: landscape on desktop, portrait below 1025px.
+  The box is sized from a definite width plus an explicit aspect-ratio (fed in
+  per project as a custom property) rather than from the image's intrinsic
+  size. A lazy image left at width:auto/height:auto measures 0x0 until it
+  loads, never intersects the viewport, and so never loads at all.
+*/
+.shot {
   display: grid;
   place-items: center;
-  border: 2px dashed currentColor;
-  opacity: 0.55;
-  padding: 24px;
-  text-align: center;
+  min-height: 0;
 }
 
-.placeholder span {
-  font-family: var(--display), sans-serif;
-  font-size: clamp(2rem, 4vw, 3.4rem);
-  line-height: 0.9;
-  letter-spacing: -0.03em;
-  font-weight: 900;
+.shot img {
+  display: block;
+  width: 100%;
+  /* Every mobile crop is 880 wide; the svh term keeps the old placeholder's
+     height-driven sizing so a short window shrinks the shot instead of
+     clipping the panel. */
+  max-width: min(74vw, 300px, calc(62svh * 0.522));
+  height: auto;
+  aspect-ratio: var(--shot-ratio-mobile);
+}
+
+@media (min-width: 1025px) {
+  .shot img {
+    /* Desktop crops are all 1720x939 — ratio 1.832. */
+    max-width: min(760px, calc(46svh * 1.832));
+    aspect-ratio: var(--shot-ratio-desktop);
+  }
 }
 
 .meta {
