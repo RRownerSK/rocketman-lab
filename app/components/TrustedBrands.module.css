@@ -1,0 +1,17 @@
+/*
+  Fixed height, auto width: the source files share a 400x200 canvas, so this
+  renders every brand at the same optical size. The dimming and hover restore
+  live on .trackLogo .item in InfiniteMarquee.module.css.
+*/
+.logo {
+  display: block;
+  width: auto;
+  height: clamp(38px, 4.4vw, 58px);
+  object-fit: contain;
+}
+
+@media (max-width: 850px) {
+  .logo {
+    height: 34px;
+  }
+}

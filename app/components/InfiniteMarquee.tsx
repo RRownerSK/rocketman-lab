@@ -1,10 +1,13 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import styles from "./InfiniteMarquee.module.css";
 
 type InfiniteMarqueeProps = {
-  words: string[];
+  /* Plain strings for the kinetic type strip. */
+  words?: string[];
+  /* Pre-rendered nodes for the logo strip. Takes precedence over words. */
+  items?: ReactNode[];
   ariaLabel: string;
   theme?: "dark" | "light";
   variant?: "text" | "logo";
@@ -19,6 +22,7 @@ type InfiniteMarqueeProps = {
 */
 export default function InfiniteMarquee({
   words,
+  items,
   ariaLabel,
   theme = "dark",
   variant = "text",
@@ -26,7 +30,10 @@ export default function InfiniteMarquee({
   durationSeconds = 30,
   reverse = false,
 }: InfiniteMarqueeProps) {
-  const sequence = separator ? words.flatMap((word) => [word, separator]) : words;
+  const source: ReactNode[] = items ?? words ?? [];
+  const sequence = separator
+    ? source.flatMap((item) => [item, separator])
+    : source;
   const loop = [...sequence, ...sequence];
 
   const trackStyle = {
@@ -48,9 +55,11 @@ export default function InfiniteMarquee({
         style={trackStyle}
         aria-hidden="true"
       >
+        {/* The sequence is static and never reorders, so the index is a
+            stable key even for non-string items. */}
         {loop.map((item, index) => (
           <span
-            key={`${item}-${index}`}
+            key={index}
             className={separator && item === separator ? styles.dot : styles.item}
           >
             {item}
