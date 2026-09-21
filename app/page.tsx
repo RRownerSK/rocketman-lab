@@ -329,8 +329,10 @@ export default function Home() {
           </div>
         </Scene>
 
-        {/* Scene 09 — PROCESS (desktop sticky stage, mobile plain stack) */}
-        <Scene theme="black" id="process" size="content" fullBleed>
+        {/* Scene 09 — PROCESS. An ordinary scene now: it used to be a
+            full-bleed sticky stage that painted its own opaque black over the
+            morphing background and held the page for four scroll gestures. */}
+        <Scene theme="black" id="process">
           <ProcessScene />
         </Scene>
 
