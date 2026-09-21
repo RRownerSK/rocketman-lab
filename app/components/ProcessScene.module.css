@@ -1,17 +1,53 @@
+/*
+  Scroll budget for the whole stage. Four steps used to cost a full viewport
+  each — 400svh of section for 300svh of scrolling. The same four steps now
+  cross over in a bit over half that distance, which is what makes the section
+  read as one block rather than a long stretch of scrolling.
+*/
 .wrapper {
+  --process-step-scroll: 46svh;
+
   position: relative;
   overflow: clip;
+  height: calc(100svh + 4 * var(--process-step-scroll));
 }
 
-.panel {
+.stage {
   position: sticky;
   top: 0;
-  min-height: 100svh;
-  display: grid;
-  align-items: center;
+  height: 100svh;
+  overflow: clip;
   background: var(--rocket-black);
   color: var(--rocket-cream);
   border-top: 1px solid rgba(243, 240, 233, 0.14);
+}
+
+.panel {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(46px);
+  pointer-events: none;
+  /* Outgoing step clears fast; the incoming one waits that out before it
+     fades up, so two display headlines never sit legibly on top of each
+     other mid-swap. */
+  transition: opacity 0.22s ease-in,
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Steps already passed leave upwards, so the stack keeps its direction. */
+.panel[data-state="before"] {
+  transform: translateY(-46px);
+}
+
+.panel[data-state="active"] {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  transition: opacity 0.3s ease-out 0.14s,
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .panelInner {
@@ -67,21 +103,46 @@
   width: 34px;
   height: 4px;
   background: rgba(243, 240, 233, 0.22);
+  transition: background-color 0.35s ease;
 }
 
 .dotActive {
   background: var(--rocket-orange);
 }
 
+/* Below this width the stage is off (see STACKED in ProcessScene.tsx) and the
+   steps are a plain list again — every step visible, no scroll budget. */
 @media (max-width: 1024px) {
-  .panel {
+  .wrapper {
+    height: auto;
+  }
+
+  .stage {
     position: relative;
     top: auto;
-    min-height: auto;
+    height: auto;
+    border-top: none;
+  }
+
+  .panel,
+  .panel[data-state="before"],
+  .panel[data-state="after"] {
+    position: relative;
+    inset: auto;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
     padding-block: 80px;
+    border-top: 1px solid rgba(243, 240, 233, 0.14);
   }
 
   .number {
     font-size: clamp(4rem, 18vw, 7rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    transition: none;
   }
 }
