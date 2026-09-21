@@ -32,7 +32,7 @@
   font-size: clamp(3.4rem, 7vw, 7.6rem);
   font-weight: 900;
   line-height: 0.85;
-  letter-spacing: -0.05em;
+  letter-spacing: var(--tracking-display);
 }
 
 .item {
@@ -43,7 +43,7 @@
 .dot {
   display: block;
   flex-shrink: 0;
-  color: var(--rocket-orange);
+  color: var(--scene-accent, var(--rocket-orange));
   font-size: 0.5em;
   transform: translateY(-0.1em);
 }

@@ -2,8 +2,8 @@
    HOMEPAGE — page-specific styles
    Shared scene primitives (scene-split, scene-copy, scene-art,
    scene-title, scene-kicker, scene-accent) live in scene-system.css.
-   This file only holds homepage-only chrome: nav, buttons, cursor,
-   the method/work sticky stacks and the footer.
+   This file only holds homepage-only chrome: nav, buttons, section
+   headings and the footer.
    ========================================================= */
 
 .nav {
@@ -40,13 +40,15 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 50px;
-  padding: 0 24px;
+  min-height: 62px;
+  padding: 0 34px;
   border-radius: 999px;
   font-family: var(--accent), sans-serif;
-  font-size: 0.74rem;
+  font-size: 0.86rem;
   font-weight: 800;
   letter-spacing: 0.04em;
+  transition: background-color 0.22s ease, color 0.22s ease,
+    border-color 0.22s ease;
 }
 
 .buttonOrange {
@@ -64,13 +66,21 @@
   color: var(--rocket-black);
 }
 
-.textLink {
-  display: inline-block;
-  padding-bottom: 4px;
-  border-bottom: 1px solid currentColor;
-  font-family: var(--accent), sans-serif;
-  font-size: 0.72rem;
-  font-weight: 700;
+/*
+  Secondary hero CTA. It used to be a small underlined text link that read as
+  a footnote next to the orange pill; it is the entry point to the work, so it
+  now carries the same weight and height as the primary button.
+*/
+.buttonOutline {
+  background: transparent;
+  color: currentColor;
+  border: 2px solid currentColor;
+}
+
+.buttonOutline:hover {
+  background: var(--rocket-cream);
+  color: var(--rocket-black);
+  border-color: var(--rocket-cream);
 }
 
 /* ---------- HERO ---------- */
@@ -103,81 +113,39 @@
   color: var(--rocket-blue);
 }
 
+/* ---------- IN-SCENE SECTION HEADING ---------- */
+
+/*
+  Compact heading for a full-bleed scene that owns its own stack (the work
+  gallery). It replaces what used to be a whole standalone intro scene, so it
+  deliberately stays a header band rather than a full screen of its own.
+*/
+.sectionHeading {
+  width: min(1480px, calc(100% - 8vw));
+  margin-inline: auto;
+  padding-block: clamp(64px, 9vh, 120px) clamp(34px, 5vh, 60px);
+}
+
+.sectionTitle {
+  margin: 0;
+  max-width: 1050px;
+  font-family: var(--display), sans-serif;
+  font-size: clamp(2.6rem, 5.2vw, 5.6rem);
+  line-height: 0.88;
+  letter-spacing: var(--tracking-display);
+  font-weight: 900;
+}
+
+.sectionTitle :global(.scene-accent) {
+  font-family: var(--accent), sans-serif;
+  font-weight: 600;
+  letter-spacing: var(--tracking-display-accent);
+}
+
 /* ---------- BRANDS MARQUEE HEADING ---------- */
 
 .brandsHeading {
   padding: 40px min(4vw, 64px) 0;
-}
-
-/* ---------- METHOD STACK (BUILD / LAUNCH / SCALE) ---------- */
-
-.methodWrapper {
-  position: relative;
-  overflow: clip;
-}
-
-.methodStep {
-  position: sticky;
-  top: 0;
-  min-height: 100svh;
-  display: grid;
-  align-items: center;
-  background: var(--rocket-black);
-  border-top: 1px solid rgba(243, 240, 233, 0.14);
-}
-
-.methodStepInner {
-  width: min(1480px, calc(100% - 8vw));
-  margin-inline: auto;
-  display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 8vw;
-  align-items: center;
-  padding-block: clamp(60px, 8vh, 100px);
-}
-
-.methodStepReverse .methodArt {
-  order: 2;
-}
-
-.methodStepReverse .methodCopy {
-  order: 1;
-}
-
-.methodArt {
-  display: grid;
-  place-items: center;
-}
-
-.methodArt img {
-  width: min(480px, 32vw);
-  height: auto;
-}
-
-.methodCopy > span {
-  font-family: var(--accent), sans-serif;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-size: 0.72rem;
-  color: var(--rocket-orange);
-}
-
-.methodCopy h3 {
-  margin: 22px 0 28px;
-  max-width: 780px;
-  font-family: var(--display), sans-serif;
-  font-size: clamp(2.6rem, 5.4vw, 6rem);
-  line-height: 0.86;
-  letter-spacing: -0.055em;
-  font-weight: 900;
-}
-
-.methodCopy p {
-  max-width: 500px;
-  margin: 0;
-  color: rgba(243, 240, 233, 0.72);
-  line-height: 1.72;
 }
 
 /* ---------- FOOTER ---------- */
@@ -225,22 +193,6 @@
 
 /* ---------- RESPONSIVE ---------- */
 
-@media (max-width: 1024px) {
-  .methodStepInner {
-    grid-template-columns: 1fr;
-    gap: 42px;
-  }
-
-  .methodStepReverse .methodArt,
-  .methodStepReverse .methodCopy {
-    order: initial;
-  }
-
-  .methodArt img {
-    width: min(70vw, 420px);
-  }
-}
-
 @media (max-width: 850px) {
   .nav {
     min-height: 74px;
@@ -261,11 +213,14 @@
     padding-bottom: 26px;
   }
 
-  .methodStep {
-    position: relative;
-    top: auto;
-    min-height: auto;
-    padding-block: 7vh;
+  .button {
+    min-height: 54px;
+    padding: 0 26px;
+    font-size: 0.78rem;
+  }
+
+  .heroActions {
+    gap: 14px;
   }
 
   .footerGrid {

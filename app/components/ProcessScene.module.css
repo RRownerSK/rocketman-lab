@@ -34,6 +34,7 @@
   font-family: var(--display), sans-serif;
   font-size: clamp(5rem, 13vw, 12rem);
   line-height: 0.8;
+  letter-spacing: var(--tracking-display);
   font-weight: 900;
   color: var(--rocket-orange);
 }
@@ -44,7 +45,7 @@
   font-family: var(--display), sans-serif;
   font-size: clamp(2.8rem, 6vw, 5.6rem);
   line-height: 0.86;
-  letter-spacing: -0.045em;
+  letter-spacing: var(--tracking-display);
   font-weight: 900;
 }
 

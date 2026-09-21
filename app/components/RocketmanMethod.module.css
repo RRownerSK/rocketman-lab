@@ -1,0 +1,99 @@
+/* =========================================================
+   THE ROCKETMAN METHOD — BUILD / LAUNCH / SCALE
+   Parked: this scene is intentionally not rendered on the
+   homepage right now. Kept intact for a future sub-page.
+   ========================================================= */
+
+.methodWrapper {
+  position: relative;
+  overflow: clip;
+}
+
+.methodStep {
+  position: sticky;
+  top: 0;
+  min-height: 100svh;
+  display: grid;
+  align-items: center;
+  background: var(--rocket-black);
+  border-top: 1px solid rgba(243, 240, 233, 0.14);
+}
+
+.methodStepInner {
+  width: min(1480px, calc(100% - 8vw));
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 8vw;
+  align-items: center;
+  padding-block: clamp(60px, 8vh, 100px);
+}
+
+.methodStepReverse .methodArt {
+  order: 2;
+}
+
+.methodStepReverse .methodCopy {
+  order: 1;
+}
+
+.methodArt {
+  display: grid;
+  place-items: center;
+}
+
+.methodArt img {
+  width: min(480px, 32vw);
+  height: auto;
+}
+
+.methodCopy > span {
+  font-family: var(--accent), sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: var(--rocket-orange);
+}
+
+.methodCopy h3 {
+  margin: 22px 0 28px;
+  max-width: 780px;
+  font-family: var(--display), sans-serif;
+  font-size: clamp(2.6rem, 5.4vw, 6rem);
+  line-height: 0.86;
+  letter-spacing: var(--tracking-display);
+  font-weight: 900;
+}
+
+.methodCopy p {
+  max-width: 500px;
+  margin: 0;
+  color: rgba(243, 240, 233, 0.72);
+  line-height: 1.72;
+}
+
+@media (max-width: 1024px) {
+  .methodStepInner {
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+
+  .methodStepReverse .methodArt,
+  .methodStepReverse .methodCopy {
+    order: initial;
+  }
+
+  .methodArt img {
+    width: min(70vw, 420px);
+  }
+}
+
+@media (max-width: 850px) {
+  .methodStep {
+    position: relative;
+    top: auto;
+    min-height: auto;
+    padding-block: 7vh;
+  }
+}

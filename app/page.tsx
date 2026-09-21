@@ -10,6 +10,19 @@ import GravityLab from "./components/GravityLab";
 import TrustedBrands from "./components/TrustedBrands";
 import styles from "./page.module.css";
 
+/*
+  Scene order. SceneController derives the background morph purely from the
+  DOM order of [data-scene][data-theme], so this file is the single source of
+  truth for the colour flow — there is no separate index list to keep in sync:
+
+    hero black → approach cream → technology orange → services marquee black
+    → web black → marketing orange → rast cream → consultation blue
+    → pricing cream → process black → work cream → brands black
+    → final CTA orange → playground purple → footer black
+
+  THE ROCKETMAN METHOD scene is parked in components/RocketmanMethod.tsx and
+  deliberately not rendered here.
+*/
 export default function Home() {
   return (
     <main>
@@ -66,7 +79,11 @@ export default function Home() {
                 >
                   BEZPLATNÁ KONZULTÁCIA ↗
                 </a>
-                <a className={styles.textLink} href="#work">
+                <a
+                  className={`${styles.button} ${styles.buttonOutline}`}
+                  href="#work"
+                  data-magnetic
+                >
                   POZRIEŤ WORK ↓
                 </a>
               </div>
@@ -143,8 +160,20 @@ export default function Home() {
           </div>
         </Scene>
 
-        {/* SERVICES MARQUEE — real continuous strip, not scroll-linked */}
-        <Scene theme="black" size="content" fullBleed>
+        {/*
+          Scene 03 — SERVICES MARQUEE. Real continuous strip, not scroll-linked.
+          Carries the #services anchor now that the WHAT WE DO scene is gone.
+          themeAdaptive: the strip is short enough that the global background
+          has already morphed to a neighbouring scene while the words are still
+          on screen, so its ink follows the active theme, not its own.
+        */}
+        <Scene
+          theme="black"
+          id="services"
+          size="content"
+          fullBleed
+          themeAdaptive
+        >
           <InfiniteMarquee
             words={["WEB", "E-SHOP", "BRANDING", "SEO", "AUTOMATION", "AI"]}
             separator="✦"
@@ -153,32 +182,7 @@ export default function Home() {
           />
         </Scene>
 
-        {/* Scene 04 — WHAT WE DO */}
-        <Scene theme="cream" id="services">
-          <div className="scene-split">
-            <div className="scene-copy">
-              <p className="scene-kicker">WHAT WE DO</p>
-              <h2 className="scene-title" data-kinetic>
-                TRI SMERY.
-                <br />
-                <span className="scene-accent">JEDEN CIEĽ.</span>
-              </h2>
-            </div>
-
-            <div className="scene-copy" data-reveal="right">
-              <p>
-                Web, marketing a rast nevnímame ako tri oddelené služby.
-                Spájame ich do jedného systému.
-              </p>
-              <p>
-                Cieľ je jednoduchý: aby značka lepšie vyzerala, lepšie
-                fungovala a mala kam rásť.
-              </p>
-            </div>
-          </div>
-        </Scene>
-
-        {/* Scene 05 — WEB */}
+        {/* Scene 04 — WEB */}
         <Scene theme="black">
           <div className="scene-split">
             <div className="scene-copy">
@@ -207,12 +211,14 @@ export default function Home() {
           </div>
         </Scene>
 
-        {/* Scene 06 — MARKETING */}
+        {/* Scene 05 — MARKETING */}
         <Scene theme="orange">
           <div className="scene-split scene-split-reverse">
             <div className="scene-copy">
               <p className="scene-kicker">02 / MARKETING</p>
-              <h2 className="scene-title" data-kinetic>
+              {/* One long word in the narrower column — scene-title--long
+                  keeps it inside the frame instead of running off the right. */}
+              <h2 className="scene-title scene-title--long" data-kinetic>
                 MARKETING
               </h2>
               <p className="scene-kicker">BRAND • SOCIAL • KAMPANE • SEO</p>
@@ -234,7 +240,7 @@ export default function Home() {
           </div>
         </Scene>
 
-        {/* Scene 07 — RAST (cream base, strong blue accent moment) */}
+        {/* Scene 06 — RAST (cream base, strong blue accent moment) */}
         <Scene theme="cream">
           <div className="scene-split">
             <div className="scene-copy">
@@ -265,7 +271,7 @@ export default function Home() {
           </div>
         </Scene>
 
-        {/* Scene 08 — BEZPLATNÁ KONZULTÁCIA */}
+        {/* Scene 07 — BEZPLATNÁ KONZULTÁCIA */}
         <Scene theme="blue">
           <div className="scene-split">
             <div className="scene-copy">
@@ -293,7 +299,7 @@ export default function Home() {
           </div>
         </Scene>
 
-        {/* Scene 09 — JASNÁ CENOVÁ PONUKA */}
+        {/* Scene 08 — JASNÁ CENOVÁ PONUKA */}
         <Scene theme="cream">
           <div className="scene-split scene-split-reverse">
             <div className="scene-copy">
@@ -323,126 +329,29 @@ export default function Home() {
           </div>
         </Scene>
 
-        {/* Scene 10 — PROCESS (desktop sticky stage, mobile plain stack) */}
+        {/* Scene 09 — PROCESS (desktop sticky stage, mobile plain stack) */}
         <Scene theme="black" id="process" size="content" fullBleed>
           <ProcessScene />
         </Scene>
 
-        {/* Scene 11 — WORK INTRO */}
-        <Scene theme="cream">
-          <div className="scene-copy">
+        {/*
+          Scene 10 — SELECTED WORK gallery / poster stack.
+          The old standalone WORK INTRO scene is folded into this heading, so
+          the gallery is no longer preceded by a whole extra screen of scroll.
+        */}
+        <Scene theme="cream" id="work" size="content" fullBleed>
+          <div className={styles.sectionHeading}>
             <p className="scene-kicker">SELECTED WORK</p>
-            <h2 className="scene-title" data-kinetic>
-              NIE KARTY.
-              <br />
+            <h2 className={styles.sectionTitle}>
+              NIE KARTY.{" "}
               <span className="scene-accent">DIGITÁLNE PLAGÁTY.</span>
             </h2>
-            <p data-reveal="up">
-              Vybrané projekty, pri ktorých sme riešili rozdielne problémy,
-              značky aj ciele.
-            </p>
           </div>
-        </Scene>
 
-        {/* Scene 12 — SELECTED WORK gallery / poster stack */}
-        <Scene theme="cream" id="work" size="content" fullBleed>
           <WorkGallery />
         </Scene>
 
-        {/*
-          Scene 13 — THE ROCKETMAN METHOD (BUILD / LAUNCH / SCALE)
-          Sticky stack wrapped in overflow:clip so it is guaranteed to end
-          exactly at its own bottom edge and never bleed into Playground.
-        */}
-        <Scene theme="black" size="content" fullBleed>
-          <div className={styles.methodWrapper}>
-            <article className={styles.methodStep}>
-              <div className={styles.methodStepInner}>
-                <div className={styles.methodArt} aria-hidden="true" data-tilt>
-                  <Image
-                    src="/06-build-modules-isometric.png"
-                    alt=""
-                    width={650}
-                    height={650}
-                  />
-                </div>
-                <div className={styles.methodCopy}>
-                  <span>THE ROCKETMAN METHOD — 01 / BUILD</span>
-                  <h3>POSTAVÍME PEVNÝ ZÁKLAD.</h3>
-                  <p>
-                    Štruktúra, obsah, dizajn a technológia musia fungovať ako
-                    jeden systém. Najprv logika, potom efekty.
-                  </p>
-                </div>
-              </div>
-            </article>
-
-            <article className={`${styles.methodStep} ${styles.methodStepReverse}`}>
-              <div className={styles.methodStepInner}>
-                <div className={styles.methodArt} aria-hidden="true" data-tilt>
-                  <Image
-                    src="/07-launch-burst-arrow.png"
-                    alt=""
-                    width={650}
-                    height={650}
-                  />
-                </div>
-                <div className={styles.methodCopy}>
-                  <span>02 / LAUNCH</span>
-                  <h3>SPUSTÍME TO MEDZI ĽUDÍ.</h3>
-                  <p>
-                    Testovanie, výkon, analytika a ostrý štart. Launch je
-                    moment, keď dizajn prestáva byť návrhom a začne pracovať.
-                  </p>
-                </div>
-              </div>
-            </article>
-
-            <article className={styles.methodStep}>
-              <div className={styles.methodStepInner}>
-                <div className={styles.methodArt} aria-hidden="true" data-tilt>
-                  <Image
-                    src="/08-growth-chart-orbit.png"
-                    alt=""
-                    width={650}
-                    height={650}
-                  />
-                </div>
-                <div className={styles.methodCopy}>
-                  <span>03 / SCALE</span>
-                  <h3>MERIAME. UPRAVUJEME. RASTIEME.</h3>
-                  <p>
-                    Dáta, nové funkcie, automatizácie a ďalšie kroky podľa
-                    toho, čo reálne funguje. Nie podľa pocitu.
-                  </p>
-                </div>
-              </div>
-            </article>
-          </div>
-        </Scene>
-
-        {/* Scene 14 — PLAYGROUND / GRAVITY LAB */}
-        <Scene theme="purple">
-          <div className="scene-split">
-            <div className="scene-copy">
-              <p className="scene-kicker">14 / PLAYGROUND</p>
-              <h2 className="scene-title" data-kinetic>
-                GRAVITY
-                <br />
-                IS JUST A
-                <br />
-                <span className="scene-accent">SUGGESTION.</span>
-              </h2>
-              <p data-reveal="up">MOVE YOUR CURSOR. BREAK SOME RULES.</p>
-            </div>
-
-            <div className="scene-art scene-safe" aria-hidden="true">
-              <GravityLab />
-            </div>
-          </div>
-        </Scene>
-
-        {/* Scene 15 — BRANDS WE'VE WORKED WITH */}
+        {/* Scene 11 — BRANDS WE HAVE WORKED WITH */}
         <Scene theme="black" size="content" fullBleed>
           <div className={styles.brandsHeading}>
             <p className="scene-kicker">BRANDS WE&apos;VE WORKED WITH</p>
@@ -450,7 +359,7 @@ export default function Home() {
           <TrustedBrands />
         </Scene>
 
-        {/* Scene 16 — FINAL CTA */}
+        {/* Scene 12 — FINAL CTA */}
         <Scene theme="orange" id="contact">
           <div className="scene-split">
             <div className="scene-copy">
@@ -489,7 +398,28 @@ export default function Home() {
           </div>
         </Scene>
 
-        {/* Scene 17 — FOOTER */}
+        {/* Scene 13 — PLAYGROUND / GRAVITY LAB, last scene before the footer */}
+        <Scene theme="purple">
+          <div className="scene-split">
+            <div className="scene-copy">
+              <p className="scene-kicker">PLAYGROUND</p>
+              <h2 className="scene-title" data-kinetic>
+                GRAVITY
+                <br />
+                IS JUST A
+                <br />
+                <span className="scene-accent">SUGGESTION.</span>
+              </h2>
+              <p data-reveal="up">MOVE YOUR CURSOR. BREAK SOME RULES.</p>
+            </div>
+
+            <div className="scene-art scene-safe" aria-hidden="true">
+              <GravityLab />
+            </div>
+          </div>
+        </Scene>
+
+        {/* Scene 14 — FOOTER */}
         <Scene theme="black" size="content" id="footer">
           <div>
             <div className={styles.footerGrid}>
