@@ -339,7 +339,7 @@ export default function Home() {
           The old standalone WORK INTRO scene is folded into this heading, so
           the gallery is no longer preceded by a whole extra screen of scroll.
         */}
-        <Scene theme="cream" id="work" size="content" fullBleed>
+        <Scene theme="cream" id="work" size="content" fullBleed themeAdaptive>
           <div className={styles.sectionHeading}>
             <p className="scene-kicker">SELECTED WORK</p>
             <h2 className={styles.sectionTitle}>
@@ -352,7 +352,7 @@ export default function Home() {
         </Scene>
 
         {/* Scene 11 — BRANDS WE HAVE WORKED WITH */}
-        <Scene theme="black" size="content" fullBleed>
+        <Scene theme="black" size="content" fullBleed themeAdaptive>
           <div className={styles.brandsHeading}>
             <p className="scene-kicker">BRANDS WE&apos;VE WORKED WITH</p>
           </div>

@@ -8,6 +8,18 @@
   width: auto;
   height: clamp(38px, 4.4vw, 58px);
   object-fit: contain;
+  transition: filter 0.5s ease;
+}
+
+/*
+  The source files are white on transparent. The strip is short enough that it
+  spends most of its time on screen under a neighbouring scene's background,
+  so on a light one the logos have to flip to dark or they simply vanish.
+  Timed to the background crossfade in SceneController.
+*/
+html[data-active-theme="cream"] .logo,
+html[data-active-theme="orange"] .logo {
+  filter: invert(1);
 }
 
 @media (max-width: 850px) {
