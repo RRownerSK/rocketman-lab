@@ -2,38 +2,10 @@
    HOMEPAGE — page-specific styles
    Shared scene primitives (scene-split, scene-copy, scene-art,
    scene-title, scene-kicker, scene-accent) live in scene-system.css.
-   This file only holds homepage-only chrome: nav, buttons, section
-   headings and the footer.
+   This file only holds homepage-only chrome: buttons and section
+   headings. The nav and footer are shared components now
+   (SiteHeader, SiteFooter).
    ========================================================= */
-
-.nav {
-  position: relative;
-  z-index: 5;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  min-height: 90px;
-}
-
-.navLinks {
-  display: flex;
-  align-items: center;
-  gap: clamp(16px, 2.4vw, 38px);
-  font-family: var(--accent), sans-serif;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.navLinks a {
-  transition: opacity 0.2s ease;
-}
-
-.navLinks a:hover {
-  opacity: 0.62;
-}
 
 .button {
   display: inline-flex;
@@ -148,65 +120,9 @@
   padding: 40px min(4vw, 64px) 0;
 }
 
-/* ---------- FOOTER ---------- */
-
-.footerGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  align-items: center;
-  gap: 30px;
-  min-height: 190px;
-}
-
-.footerGrid > img {
-  width: 150px;
-}
-
-.footerSlogan {
-  margin: 0;
-  text-align: center;
-  font-family: var(--accent), sans-serif;
-  font-size: 1.4rem;
-  font-weight: 700;
-}
-
-.footerNav {
-  display: flex;
-  justify-content: flex-end;
-  gap: 22px;
-  font-family: var(--accent), sans-serif;
-  font-size: 0.65rem;
-  text-transform: uppercase;
-}
-
-.footerBottom {
-  min-height: 70px;
-  border-top: 1px solid rgba(243, 240, 233, 0.16);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  color: rgba(243, 240, 233, 0.5);
-  font-size: 0.62rem;
-  letter-spacing: 0.07em;
-}
-
 /* ---------- RESPONSIVE ---------- */
 
 @media (max-width: 850px) {
-  .nav {
-    min-height: 74px;
-  }
-
-  .navLinks {
-    gap: 13px;
-    font-size: 0.56rem;
-  }
-
-  .navLinks a:nth-child(3) {
-    display: none;
-  }
-
   .heroFoot {
     align-items: flex-start;
     flex-direction: column;
@@ -221,27 +137,5 @@
 
   .heroActions {
     gap: 14px;
-  }
-
-  .footerGrid {
-    grid-template-columns: 1fr;
-    justify-items: center;
-    padding-block: 40px;
-  }
-
-  .footerNav {
-    justify-content: center;
-  }
-
-  .footerBottom {
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-  }
-}
-
-@media (max-width: 560px) {
-  .navLinks a:nth-child(1) {
-    display: none;
   }
 }

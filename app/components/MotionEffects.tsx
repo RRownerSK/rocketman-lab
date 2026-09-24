@@ -24,42 +24,55 @@ export default function MotionEffects() {
     const ctx = gsap.context(() => {
       // ------------------------------------------------
       // HERO INTRO
+      // Not every page's hero has every part (/kontakt has no art), so a
+      // step only joins the timeline when its target exists — otherwise GSAP
+      // warns about a missing target on every load.
       // ------------------------------------------------
-      gsap
-        .timeline({ defaults: { ease: "power3.out" } })
-        .from("[data-hero-nav]", { y: -20, opacity: 0, duration: 0.5 })
-        .from(
-          "[data-hero-kicker]",
-          { y: 18, opacity: 0, duration: 0.5 },
-          "-=0.15"
-        )
-        .from(
-          "[data-hero-title]",
-          { y: 70, opacity: 0, duration: 0.9 },
-          "-=0.25"
-        )
-        .from(
-          "[data-hero-copy]",
-          { y: 20, opacity: 0, duration: 0.5 },
-          "-=0.35"
-        )
-        .from(
-          "[data-hero-actions]",
-          { y: 15, opacity: 0, duration: 0.45 },
-          "-=0.25"
-        )
-        .from(
-          "[data-hero-art]",
-          {
-            x: 200,
-            y: 120,
-            rotation: 16,
-            scale: 0.75,
-            opacity: 0,
-            duration: 1.1,
-          },
-          "-=0.85"
-        );
+      const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      const heroStep = (
+        selector: string,
+        vars: gsap.TweenVars,
+        position?: string
+      ) => {
+        if (document.querySelector(selector)) {
+          intro.from(selector, vars, position);
+        }
+      };
+
+      heroStep("[data-hero-nav]", { y: -20, opacity: 0, duration: 0.5 });
+      heroStep(
+        "[data-hero-kicker]",
+        { y: 18, opacity: 0, duration: 0.5 },
+        "-=0.15"
+      );
+      heroStep(
+        "[data-hero-title]",
+        { y: 70, opacity: 0, duration: 0.9 },
+        "-=0.25"
+      );
+      heroStep(
+        "[data-hero-copy]",
+        { y: 20, opacity: 0, duration: 0.5 },
+        "-=0.35"
+      );
+      heroStep(
+        "[data-hero-actions]",
+        { y: 15, opacity: 0, duration: 0.45 },
+        "-=0.25"
+      );
+      heroStep(
+        "[data-hero-art]",
+        {
+          x: 200,
+          y: 120,
+          rotation: 16,
+          scale: 0.75,
+          opacity: 0,
+          duration: 1.1,
+        },
+        "-=0.85"
+      );
 
       // ------------------------------------------------
       // GENERAL REVEALS

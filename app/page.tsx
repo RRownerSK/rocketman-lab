@@ -8,6 +8,8 @@ import ProcessScene from "./components/ProcessScene";
 import WorkGallery from "./components/WorkGallery";
 import GravityLab from "./components/GravityLab";
 import TrustedBrands from "./components/TrustedBrands";
+import SiteHeader from "./components/SiteHeader";
+import SiteFooter from "./components/SiteFooter";
 import styles from "./page.module.css";
 
 /*
@@ -33,24 +35,7 @@ export default function Home() {
       <div className="scene-deck">
         {/* Scene 00 — HERO */}
         <Scene theme="black" id="top">
-          <header className={styles.nav} data-hero-nav>
-            <a href="#top" aria-label="Rocketman domov">
-              <Image
-                src="/rocketman-logo.svg"
-                alt="Rocketman"
-                width={152}
-                height={42}
-                priority
-              />
-            </a>
-
-            <nav className={styles.navLinks} aria-label="Hlavná navigácia">
-              <a href="#work">WORK</a>
-              <a href="#services">SLUŽBY</a>
-              <a href="#process">PROCES</a>
-              <a href="#contact">KONTAKT</a>
-            </nav>
-          </header>
+          <SiteHeader home />
 
           <div className="scene-split">
             <div className="scene-copy">
@@ -422,32 +407,7 @@ export default function Home() {
         </Scene>
 
         {/* Scene 14 — FOOTER */}
-        <Scene theme="black" size="content" id="footer">
-          <div>
-            <div className={styles.footerGrid}>
-              <Image
-                src="/rocketman-logo.svg"
-                alt="Rocketman"
-                width={150}
-                height={42}
-              />
-              <p className={styles.footerSlogan}>
-                THE TENDENCY TO{" "}
-                <span className="scene-accent">GROW.</span>
-              </p>
-              <nav className={styles.footerNav} aria-label="Pätičková navigácia">
-                <a href="#services">SLUŽBY</a>
-                <a href="#work">WORK</a>
-                <a href="#contact">KONTAKT</a>
-              </nav>
-            </div>
-
-            <div className={styles.footerBottom}>
-              <span>© 2026 ROCKETMAN.DIGITAL</span>
-              <span>WEB / MARKETING / GROWTH</span>
-            </div>
-          </div>
-        </Scene>
+        <SiteFooter home />
       </div>
     </main>
   );

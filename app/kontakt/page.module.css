@@ -1,0 +1,153 @@
+/* =========================================================
+   /KONTAKT — page-specific styles
+   Scene primitives come from scene-system.css, the CTA pills
+   from the homepage's page.module.css.
+   ========================================================= */
+
+/* ---------- HERO ---------- */
+
+/*
+  Shorter than a full-screen scene: the hero only carries a headline, and the
+  contact details should already be peeking in below the fold.
+*/
+.hero:global(.scene) {
+  min-height: min(86svh, 920px);
+}
+
+.heroCopy {
+  align-self: center;
+  padding-block: clamp(40px, 8vh, 96px) clamp(24px, 4vh, 48px);
+}
+
+/* ---------- CONTACT CARD (orange scene) ---------- */
+
+.details {
+  display: grid;
+  gap: 26px;
+  margin: 44px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.details li {
+  display: grid;
+  gap: 6px;
+}
+
+.person {
+  font-family: var(--accent), sans-serif;
+  font-size: clamp(1.7rem, 2.6vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.detailLabel {
+  font-family: var(--accent), sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--scene-muted);
+}
+
+.detailLink {
+  justify-self: start;
+  font-family: var(--display), sans-serif;
+  font-size: clamp(1.25rem, 1.9vw, 1.8rem);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s ease;
+}
+
+.detailLink:hover,
+.detailLink:focus-visible {
+  background-size: 100% 2px;
+}
+
+.socials {
+  display: flex;
+  gap: 14px;
+  margin: 40px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.social {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  transition: background-color 0.22s ease, color 0.22s ease,
+    border-color 0.22s ease;
+}
+
+.social:hover,
+.social:focus-visible {
+  background: var(--rocket-black);
+  color: var(--rocket-cream);
+  border-color: var(--rocket-black);
+}
+
+.social:focus-visible,
+.detailLink:focus-visible {
+  outline: 3px solid var(--rocket-black);
+  outline-offset: 4px;
+}
+
+/* ---------- MESSAGE + FORM (cream scene) ---------- */
+
+.messageGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(42px, 7vw, 120px);
+  align-items: start;
+  padding-block: clamp(24px, 6vh, 72px);
+}
+
+/* Same step as the homepage's in-scene section headings. */
+.messageTitle {
+  margin: 0;
+  font-family: var(--display), sans-serif;
+  font-size: clamp(2.6rem, 5.2vw, 5.6rem);
+  line-height: 0.88;
+  letter-spacing: var(--tracking-display);
+  font-weight: 900;
+}
+
+.messageTitle :global(.scene-accent) {
+  font-family: var(--accent), sans-serif;
+  font-weight: 600;
+  letter-spacing: var(--tracking-display-accent);
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 1024px) {
+  .messageGrid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero:global(.scene) {
+    min-height: 78svh;
+  }
+
+  .details {
+    margin-top: 32px;
+    gap: 22px;
+  }
+
+  .social {
+    width: 52px;
+    height: 52px;
+  }
+}

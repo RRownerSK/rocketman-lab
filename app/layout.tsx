@@ -70,7 +70,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="sk">
+    /*
+      globals.css sets scroll-behavior: smooth. Since Next 16 that also
+      applies to route changes unless this attribute opts back into the
+      instant jump, so going / → /kontakt would crawl up the whole page.
+    */
+    <html lang="sk" data-scroll-behavior="smooth">
       <body
         className={`${firaSans.variable} ${saira.variable} ${roboto.variable}`}
       >

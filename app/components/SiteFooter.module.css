@@ -1,0 +1,62 @@
+/* =========================================================
+   SITE FOOTER — shared by every page
+   ========================================================= */
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  gap: 30px;
+  min-height: 190px;
+}
+
+.footerGrid > img {
+  width: 150px;
+}
+
+.footerSlogan {
+  margin: 0;
+  text-align: center;
+  font-family: var(--accent), sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.footerNav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 22px;
+  font-family: var(--accent), sans-serif;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+}
+
+.footerBottom {
+  min-height: 70px;
+  border-top: 1px solid rgba(243, 240, 233, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  color: rgba(243, 240, 233, 0.5);
+  font-size: 0.62rem;
+  letter-spacing: 0.07em;
+}
+
+@media (max-width: 850px) {
+  .footerGrid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    padding-block: 40px;
+  }
+
+  .footerNav {
+    justify-content: center;
+  }
+
+  .footerBottom {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+}

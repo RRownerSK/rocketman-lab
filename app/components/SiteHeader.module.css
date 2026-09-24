@@ -1,0 +1,59 @@
+/* =========================================================
+   SITE HEADER — shared by every page
+   Lives inside the first (black) scene of a page, so its ink
+   comes from that scene's theme.
+   ========================================================= */
+
+.nav {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 90px;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2.4vw, 38px);
+  font-family: var(--accent), sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.navLinks a {
+  transition: opacity 0.2s ease;
+}
+
+.navLinks a:hover {
+  opacity: 0.62;
+}
+
+.navLinks a[aria-current="page"] {
+  color: var(--scene-accent);
+}
+
+@media (max-width: 850px) {
+  .nav {
+    min-height: 74px;
+  }
+
+  .navLinks {
+    gap: 13px;
+    font-size: 0.56rem;
+  }
+
+  .navLinks a:nth-child(3) {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .navLinks a:nth-child(1) {
+    display: none;
+  }
+}
