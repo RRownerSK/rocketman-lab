@@ -5,6 +5,7 @@ import {
   Roboto,
 } from "next/font/google";
 
+import ScrollToTop from "./components/ScrollToTop";
 import "./globals.css";
 import "./scene-system.css";
 
@@ -80,6 +81,7 @@ export default function RootLayout({
         className={`${firaSans.variable} ${saira.variable} ${roboto.variable}`}
       >
         {children}
+        <ScrollToTop />
       </body>
     </html>
   );

@@ -77,7 +77,8 @@ function SocialGlyph({ icon }: { icon: SocialIcon }) {
 
 /*
   Scene order (SceneController reads it straight from the DOM):
-    hero black → contact card orange → message form cream → footer black
+    hero black → contact card orange → message form cream
+  The footer paints its own black and stays out of the morph.
 */
 export default function KontaktPage() {
   return (
@@ -184,13 +185,8 @@ export default function KontaktPage() {
           </div>
         </Scene>
 
-        {/*
-          Scene 02 — MESSAGE + FORM. themeAdaptive: the footer below is too
-          short to take over at the viewport centre, so the background only
-          turns black at the very bottom — while the end of the form is still
-          on screen. Its ink follows the active theme so it stays readable.
-        */}
-        <Scene theme="cream" id="sprava" size="content" themeAdaptive>
+        {/* Scene 02 — MESSAGE + FORM */}
+        <Scene theme="cream" id="sprava" size="content">
           <div className={styles.messageGrid}>
             <div className="scene-copy">
               <p className="scene-kicker">NAPÍŠTE NÁM</p>

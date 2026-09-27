@@ -12,7 +12,13 @@ export default function SiteFooter({ home = false }: SiteFooterProps) {
   const section = (hash: string) => (home ? hash : `/${hash}`);
 
   return (
-    <Scene theme="black" size="content" id="footer">
+    <Scene
+      theme="black"
+      size="content"
+      id="footer"
+      solid
+      className={styles.footer}
+    >
       <div>
         <div className={styles.footerGrid}>
           <Image

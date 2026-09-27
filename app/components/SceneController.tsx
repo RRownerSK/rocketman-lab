@@ -15,8 +15,12 @@ export default function SceneController() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
+    /*
+      Scenes that paint their own background (the footer) sit outside the
+      morph entirely, so the page never has to reach them to recolour.
+    */
     const scenes = gsap.utils.toArray<HTMLElement>(
-      "[data-scene][data-theme]"
+      "[data-scene][data-theme]:not([data-scene-solid])"
     );
 
     const firstLayer = layerA.current;
@@ -129,20 +133,10 @@ export default function SceneController() {
 
     applyTheme(initialScene.dataset.theme, true);
 
-    /*
-      clamp() on the last scene only: a short footer never gets its top up to
-      the viewport centre — the page runs out first — so without it the
-      background stayed on the previous theme and the footer's cream ink sat
-      on cream. Clamped, the switch lands on the last scrollable pixel.
-      Clamping every scene is not safe: the hero's start clamps to 0 and a
-      load straight onto /#work then repaints the hero's black over it.
-    */
-    const lastScene = scenes[scenes.length - 1];
-
     const sceneTriggers = scenes.map((scene) =>
       ScrollTrigger.create({
         trigger: scene,
-        start: scene === lastScene ? "clamp(top 50%)" : "top 50%",
+        start: "top 50%",
         end: "bottom 50%",
         onEnter: () => applyTheme(scene.dataset.theme),
         onEnterBack: () => applyTheme(scene.dataset.theme),

@@ -1,59 +1,53 @@
 /*
-  Four steps on one path, in one screen. The gap is a custom property because
-  the connector between two steps has to span its own column plus the gutter to
-  reach the next dot, so both have to come from the same number.
+  Four equal cards in one centred row. Every card gets the same track width
+  and stretches to the tallest one, so the row reads as one balanced block
+  instead of a path that runs off to the right.
 */
 .section {
-  --process-gap: clamp(26px, 3vw, 58px);
-  --process-dot: 13px;
-
   width: 100%;
+  display: grid;
+  justify-items: center;
+}
+
+.kicker {
+  text-align: center;
 }
 
 .track {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--process-gap);
+  gap: clamp(16px, 1.8vw, 28px);
+  width: 100%;
   margin: clamp(18px, 3vh, 34px) 0 0;
   padding: 0;
   list-style: none;
-  counter-reset: none;
 }
 
 .step {
-  position: relative;
+  display: flex;
+  flex-direction: column;
   min-width: 0;
-  padding-top: calc(var(--process-dot) + 26px);
+  padding: clamp(26px, 2.4vw, 38px);
+  border: 1px solid var(--scene-line);
+  border-radius: 28px;
+  background: color-mix(in srgb, var(--scene-text) 3%, transparent);
+  transition: border-color 0.25s ease, background-color 0.25s ease;
 }
 
-/* The node this step sits on. */
-.step::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: var(--process-dot);
-  height: var(--process-dot);
-  border-radius: 50%;
-  background: var(--scene-accent);
+.step:hover {
+  border-color: color-mix(in srgb, var(--scene-accent) 70%, transparent);
+  background: color-mix(in srgb, var(--scene-text) 5%, transparent);
 }
 
-/*
-  The path onward to the next node: the rest of this column plus the gutter,
-  starting clear of this step's own dot. The last step has nowhere to go.
-*/
-.step:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  top: calc(var(--process-dot) / 2 - 1px);
-  left: calc(var(--process-dot) + 10px);
-  width: calc(100% + var(--process-gap) - var(--process-dot) - 10px);
-  height: 2px;
-  background: var(--scene-line);
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: clamp(34px, 4vh, 56px);
 }
 
 .number {
-  display: block;
   font-family: var(--display), sans-serif;
   font-size: clamp(2.4rem, 3.4vw, 4.2rem);
   line-height: 0.9;
@@ -62,10 +56,21 @@
   color: var(--scene-accent);
 }
 
+.icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--scene-line);
+  border-radius: 50%;
+  color: var(--scene-accent);
+}
+
 .title {
-  margin: 14px 0 14px;
+  margin: 0 0 14px;
   font-family: var(--display), sans-serif;
-  font-size: clamp(1.25rem, 1.9vw, 2.05rem);
+  font-size: clamp(1.25rem, 1.7vw, 1.9rem);
   line-height: 1.02;
   letter-spacing: var(--tracking-display);
   font-weight: 900;
@@ -78,21 +83,30 @@
   color: var(--scene-muted);
 }
 
-/* Two up. The path belonged to a single row of four, so it goes with it. */
+/* 2×2 — still symmetric, just two rows. */
 @media (max-width: 1024px) {
   .track {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(34px, 5vw, 56px);
-  }
-
-  .step:not(:last-child)::after {
-    content: none;
+    gap: clamp(16px, 3vw, 24px);
   }
 }
 
 @media (max-width: 560px) {
   .track {
     grid-template-columns: minmax(0, 1fr);
-    gap: 34px;
+    gap: 16px;
+  }
+
+  .step {
+    border-radius: 22px;
+  }
+
+  .head {
+    margin-bottom: 26px;
+  }
+
+  .icon {
+    width: 50px;
+    height: 50px;
   }
 }

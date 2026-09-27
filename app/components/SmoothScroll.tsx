@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { setLenis } from "./lenisInstance";
 
 export default function SmoothScroll() {
   useEffect(() => {
@@ -22,6 +23,7 @@ export default function SmoothScroll() {
       touchMultiplier: 1.15,
     });
 
+    setLenis(lenis);
     lenis.on("scroll", ScrollTrigger.update);
 
     const update = (time: number) => {
@@ -33,6 +35,7 @@ export default function SmoothScroll() {
 
     return () => {
       gsap.ticker.remove(update);
+      setLenis(null);
       lenis.destroy();
     };
   }, []);

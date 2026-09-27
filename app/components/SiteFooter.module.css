@@ -2,6 +2,18 @@
    SITE FOOTER — shared by every page
    ========================================================= */
 
+/*
+  Always its own black, never the morphing page background: the footer is too
+  short to reach the viewport centre, so the morph used to leave its cream ink
+  on the light scene before it for the whole approach. The rounded top edge is
+  the transition now — a black panel rising over whatever scene sits above.
+  .scene sets background: transparent !important, hence the !important here.
+*/
+.footer:global(.scene) {
+  background: var(--rocket-black) !important;
+  border-radius: clamp(28px, 4vw, 64px) clamp(28px, 4vw, 64px) 0 0;
+}
+
 .footerGrid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

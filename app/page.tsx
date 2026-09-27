@@ -20,7 +20,9 @@ import styles from "./page.module.css";
     hero black → approach cream → technology orange → services marquee black
     → web black → marketing orange → rast cream → consultation blue
     → pricing cream → process black → work cream → brands black
-    → final CTA orange → playground purple → footer black
+    → final CTA orange → playground purple
+
+  The footer paints its own black and stays out of the morph.
 
   THE ROCKETMAN METHOD scene is parked in components/RocketmanMethod.tsx and
   deliberately not rendered here.

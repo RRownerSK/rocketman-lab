@@ -18,6 +18,13 @@ type SceneProps = {
     from the *active* theme instead of its own.
   */
   themeAdaptive?: boolean;
+  /*
+    The scene paints its own opaque background instead of relying on the
+    global morph, and SceneController leaves it out of the morph. For the
+    footer: it is too short to ever reach the viewport centre, so waiting on
+    the morph left its cream ink on whatever light scene came before it.
+  */
+  solid?: boolean;
 };
 
 export default function Scene({
@@ -29,6 +36,7 @@ export default function Scene({
   size = "full",
   fullBleed = false,
   themeAdaptive = false,
+  solid = false,
 }: SceneProps) {
   return (
     <section
@@ -37,6 +45,7 @@ export default function Scene({
       data-scene
       data-theme={theme}
       data-theme-adaptive={themeAdaptive ? "" : undefined}
+      data-scene-solid={solid ? "" : undefined}
     >
       <div
         className={`scene-frame ${
