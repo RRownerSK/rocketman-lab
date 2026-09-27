@@ -11,6 +11,24 @@ import TrustedBrands from "./components/TrustedBrands";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
 import styles from "./page.module.css";
+import type { Metadata } from "next";
+import { shareMetadata } from "./seo";
+
+const HOME_TITLE = "Rocketman – digitálne štúdio pre web, marketing a branding";
+const HOME_DESCRIPTION =
+  "Weby, e-shopy, marketing a branding pre značky, ktoré nechcú stáť na mieste. Bezplatná konzultácia a jasná cenová ponuka ešte pred začiatkom.";
+
+export const metadata: Metadata = {
+  // absolute: the brand is already in it, so skip the "%s | Rocketman" template
+  title: { absolute: HOME_TITLE },
+  description: HOME_DESCRIPTION,
+  alternates: { canonical: "/" },
+  ...shareMetadata({
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    path: "/",
+  }),
+};
 
 /*
   Scene order. SceneController derives the background morph purely from the
@@ -42,21 +60,23 @@ export default function Home() {
           <div className="scene-split">
             <div className="scene-copy">
               <p className="scene-kicker" data-hero-kicker>
-                DIGITAL STUDIO / EST. 2026
+                DIGITAL STUDIO
               </p>
 
-              <h1 className="scene-title" data-hero-title>
-                WE DON&apos;T
-                <br />
-                BUILD WEBSITES.
-                <br />
-                <span className="scene-accent">WE BUILD MOMENTUM.</span>
-              </h1>
-
-              <p data-hero-copy>
-                Web, marketing a digitálne riešenia pre značky, ktoré nechcú
-                zostať stáť na mieste.
-              </p>
+              {/* hgroup: the line under the headline is its subheading. The
+                  intro animation targets the group so both arrive together. */}
+              <hgroup data-hero-title>
+                <h1 className="scene-title">
+                  WE DON&apos;T
+                  <br />
+                  BUILD WEBSITES.
+                  <br />
+                  <span className="scene-accent">WE BUILD MOMENTUM.</span>
+                </h1>
+                <p className={`scene-kicker ${styles.subheading}`}>
+                  Web, marketing a branding pre firmy na Slovensku
+                </p>
+              </hgroup>
 
               <div className={styles.heroActions} data-hero-actions>
                 <a

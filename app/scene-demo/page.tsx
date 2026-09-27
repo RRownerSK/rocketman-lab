@@ -2,6 +2,16 @@ import Image from "next/image";
 import SmoothScroll from "../components/SmoothScroll";
 import Scene from "../components/Scene";
 import SceneController from "../components/SceneController";
+import type { Metadata } from "next";
+
+/*
+  Internal test bench for the scene system, not a page for visitors: kept out
+  of search results and out of the sitemap.
+*/
+export const metadata: Metadata = {
+  title: "Scene demo",
+  robots: { index: false, follow: false },
+};
 
 export default function SceneDemoPage() {
   return (

@@ -74,7 +74,9 @@ const STEPS = [
 export default function ProcessScene() {
   return (
     <div className={styles.section}>
-      <p className={`scene-kicker ${styles.kicker}`}>PROCESS</p>
+      {/* An h2, not a p: without it the step h3s sat under the previous
+          scene's heading ("JASNÁ CENOVÁ PONUKA") in the page outline. */}
+      <h2 className={`scene-kicker ${styles.kicker}`}>PROCESS</h2>
 
       <ol className={styles.track}>
         {STEPS.map((step) => (

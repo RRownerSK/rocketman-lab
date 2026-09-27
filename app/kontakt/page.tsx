@@ -10,17 +10,26 @@ import ContactForm from "../components/ContactForm";
 // The CTA pills are the homepage's own, reused so both pages share one button.
 import home from "../page.module.css";
 import styles from "./page.module.css";
+import { CONTACT_EMAIL, CONTACT_PHONE, shareMetadata } from "../seo";
+
+const KONTAKT_DESCRIPTION =
+  "Napíšte nám alebo zavolajte na +421 917 746 172. Prvá konzultácia k webu, marketingu či brandingu je bezplatná a bez záväzkov.";
 
 export const metadata: Metadata = {
-  title: "Kontakt — Rocketman",
-  description:
-    "Napíšte nám alebo zavolajte. Prvé stretnutie je bezplatné — povedzte nám, čo chcete postaviť.",
+  // Rendered as "Kontakt | Rocketman" through the root layout's template.
+  title: "Kontakt",
+  description: KONTAKT_DESCRIPTION,
   alternates: { canonical: "/kontakt" },
+  ...shareMetadata({
+    title: "Kontakt | Rocketman",
+    description: KONTAKT_DESCRIPTION,
+    path: "/kontakt",
+  }),
 };
 
-const EMAIL = "info@rocketman.digital";
-const PHONE_DISPLAY = "+421 917 746 172";
-const PHONE_HREF = "tel:+421917746172";
+const EMAIL = CONTACT_EMAIL;
+const PHONE_DISPLAY = CONTACT_PHONE;
+const PHONE_HREF = `tel:${CONTACT_PHONE.replace(/\s/g, "")}`;
 
 /*
   TODO: replace the "#" placeholders with the real profile URLs.
@@ -97,11 +106,18 @@ export default function KontaktPage() {
               KONTAKT / ROCKETMAN.DIGITAL
             </p>
 
-            <h1 className="scene-title" data-hero-title>
-              Kontaktujte
-              <br />
-              <span className="scene-accent">nás.</span>
-            </h1>
+            {/* hgroup: the line under the headline is its subheading. The
+                intro animation targets the group so both arrive together. */}
+            <hgroup data-hero-title>
+              <h1 className="scene-title">
+                Kontaktujte
+                <br />
+                <span className="scene-accent">nás.</span>
+              </h1>
+              <p className={`scene-kicker ${home.subheading}`}>
+                Digitálne štúdio pre web, marketing a branding
+              </p>
+            </hgroup>
 
             <p data-hero-copy>
               Máte projekt, nápad alebo len otázku? Prvé stretnutie je

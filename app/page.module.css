@@ -79,6 +79,16 @@
   color: var(--rocket-orange);
 }
 
+/*
+  Hero subheading: the scene-kicker eyebrow, set under the headline instead of
+  above it (the same way the WEB scene hangs its kicker under "WEB"). Only the
+  spacing changes — the kicker's own margin sits below it, and the headline's
+  0.8 line-height needs a little air above. Shared with /kontakt.
+*/
+.subheading:global(.scene-kicker) {
+  margin: clamp(22px, 2.6vw, 34px) 0 0;
+}
+
 /* ---------- ACCENT HOOK (RAST scene) ---------- */
 
 .blueAccent {

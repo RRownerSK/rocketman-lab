@@ -6,6 +6,14 @@ import {
 } from "next/font/google";
 
 import ScrollToTop from "./components/ScrollToTop";
+import {
+  DEFAULT_DESCRIPTION,
+  DEFAULT_TITLE,
+  ORGANIZATION_JSON_LD,
+  SITE_NAME,
+  SITE_URL,
+  shareMetadata,
+} from "./seo";
 import "./globals.css";
 import "./scene-system.css";
 
@@ -27,42 +35,25 @@ const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
 });
 
-const SITE_URL = "https://rocketman.digital";
-const TITLE = "Rocketman — digital studio";
-const DESCRIPTION =
-  "Web, marketing a digitálne riešenia pre značky, ktoré nechcú zostať stáť na mieste.";
-
-const OG_IMAGE = {
-  url: "/og-image.png",
-  width: 1200,
-  height: 630,
-  alt: TITLE,
-};
-
 export const metadata: Metadata = {
   /*
     Required for the social image to resolve: without it Next falls back to
     http://localhost:3000 in a non-Vercel production build and the card
-    silently points at nothing.
+    silently points at nothing. It also turns every relative canonical and
+    openGraph url below into an absolute one.
   */
   metadataBase: new URL(SITE_URL),
-  title: TITLE,
-  description: DESCRIPTION,
-  openGraph: {
-    type: "website",
-    locale: "sk_SK",
-    url: SITE_URL,
-    siteName: "Rocketman",
-    title: TITLE,
-    description: DESCRIPTION,
-    images: [OG_IMAGE],
+  title: {
+    default: DEFAULT_TITLE,
+    template: `%s | ${SITE_NAME}`,
   },
-  twitter: {
-    card: "summary_large_image",
-    title: TITLE,
-    description: DESCRIPTION,
-    images: [OG_IMAGE],
-  },
+  description: DEFAULT_DESCRIPTION,
+  applicationName: SITE_NAME,
+  ...shareMetadata({
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    path: "/",
+  }),
 };
 
 export default function RootLayout({
@@ -80,6 +71,16 @@ export default function RootLayout({
       <body
         className={`${firaSans.variable} ${saira.variable} ${roboto.variable}`}
       >
+        {/*
+          Organization structured data. "<" is escaped so no string in the
+          payload can close the script tag early (Next's JSON-LD guidance).
+        */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(ORGANIZATION_JSON_LD).replace(/</g, "\\u003c"),
+          }}
+        />
         {children}
         <ScrollToTop />
       </body>
