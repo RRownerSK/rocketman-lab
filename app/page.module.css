@@ -95,6 +95,15 @@
   color: var(--rocket-blue);
 }
 
+/*
+  Blue only reads on the RAST scene's own cream. While a neighbour's theme is
+  painted behind it (the blue consultation scene is next), fall back to the
+  scene ink like everything else.
+*/
+:global(html[data-active-theme]:not([data-active-theme="cream"])) .blueAccent {
+  color: var(--scene-text);
+}
+
 /* ---------- IN-SCENE SECTION HEADING ---------- */
 
 /*

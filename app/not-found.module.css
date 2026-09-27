@@ -9,57 +9,33 @@
   min-height: min(92svh, 980px);
 }
 
-/* ---------- ART: the scroll-to-top rocket, drawn large ---------- */
-
-.art {
-  min-height: clamp(260px, 40vw, 520px);
-}
+/* ---------- ART: the consultation astronaut, reused ---------- */
 
 /*
-  A thin orbit ring behind the rocket, in the scene's own line colour — the
-  same ring the socials and process icons sit in, just scaled up.
+  A slow drift, as if the page really did float off. On a wrapper, not the
+  image: the image's transform belongs to the GSAP parallax, and the art box's
+  to the hero intro and tilt, so each motion owns its own element.
 */
-.orbit {
+.drift {
   display: grid;
   place-items: center;
-  width: clamp(240px, 34vw, 460px);
-  aspect-ratio: 1;
-  border: 1px solid var(--scene-line);
-  border-radius: 50%;
-  color: var(--rocket-orange);
-}
-
-/* .scene-art svg would otherwise stretch it to 680px wide. */
-:global(.scene-art) .rocket {
-  width: 56%;
-  height: auto;
-  animation: drift 5.5s ease-in-out infinite;
+  width: 100%;
+  animation: drift 7s ease-in-out infinite;
 }
 
 @keyframes drift {
   0%,
   100% {
-    transform: translate(0, 0) rotate(8deg);
+    transform: translate(0, 0) rotate(-2deg);
   }
 
   50% {
-    transform: translate(6px, -16px) rotate(14deg);
-  }
-}
-
-@media (max-width: 1024px) {
-  .art {
-    min-height: 0;
-  }
-
-  .orbit {
-    width: min(64vw, 340px);
+    transform: translate(8px, -18px) rotate(2deg);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :global(.scene-art) .rocket {
+  .drift {
     animation: none;
-    transform: rotate(8deg);
   }
 }

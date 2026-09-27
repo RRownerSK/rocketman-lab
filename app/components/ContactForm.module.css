@@ -2,8 +2,9 @@
    CONTACT FORM
    Takes all of its ink from the surrounding scene's variables
    (--scene-text / --scene-muted / --scene-line), so it reads on
-   whichever theme it is dropped into. Built for the cream scene, but it
-   sits in a theme-adaptive one, so it also has to hold up on black.
+   whichever theme it is dropped into. Built for the cream scene, but scene
+   ink follows the painted theme (scene-system.css), so while a neighbouring
+   scene's background is behind it the form has to hold up on that too.
    ========================================================= */
 
 .form {

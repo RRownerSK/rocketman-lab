@@ -1,20 +1,14 @@
 type RocketIconProps = {
   size?: number;
   className?: string;
-  /* In grid units (24px box). Drawn large, 2 turns into a very heavy line. */
-  strokeWidth?: number;
 };
 
 /*
   Line rocket pointing straight up, drawn in currentColor on a 24px grid so it
   sits with the other line icons (process steps, socials). Shared by the
-  PROCESS "Spustíme" step, the scroll-to-top button and the 404 page.
+  PROCESS "Spustíme" step and the scroll-to-top button.
 */
-export default function RocketIcon({
-  size = 24,
-  className,
-  strokeWidth = 2,
-}: RocketIconProps) {
+export default function RocketIcon({ size = 24, className }: RocketIconProps) {
   return (
     <svg
       className={className}
@@ -23,7 +17,7 @@ export default function RocketIcon({
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={strokeWidth}
+      strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"

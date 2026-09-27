@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import MotionEffects from "./components/MotionEffects";
 import SmoothScroll from "./components/SmoothScroll";
@@ -6,7 +7,6 @@ import SceneController from "./components/SceneController";
 import Scene from "./components/Scene";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
-import RocketIcon from "./components/RocketIcon";
 // The CTA pills are the homepage's own, as on /kontakt.
 import home from "./page.module.css";
 import styles from "./not-found.module.css";
@@ -76,13 +76,22 @@ export default function NotFound() {
               </div>
             </div>
 
+            {/* The consultation scene's astronaut, reused as-is. */}
             <div
-              className={`scene-art scene-safe ${styles.art}`}
+              className="scene-art scene-safe"
               aria-hidden="true"
+              data-tilt
               data-hero-art
             >
-              <div className={styles.orbit}>
-                <RocketIcon className={styles.rocket} size={260} strokeWidth={1.1} />
+              <div className={styles.drift}>
+                <Image
+                  src="/11-consultation-orbit.png"
+                  alt=""
+                  width={900}
+                  height={900}
+                  priority
+                  data-parallax="40"
+                />
               </div>
             </div>
           </div>
