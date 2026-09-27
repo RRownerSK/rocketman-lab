@@ -101,6 +101,17 @@
   outline-offset: 4px;
 }
 
+/*
+  The portrait. .scene-art img lets art grow to 680px, which is far too big
+  for a face next to four lines of contact details, so this caps it. The
+  extra :global(.scene-art) keeps it ahead of that global rule regardless of
+  stylesheet order.
+*/
+:global(.scene-art).portrait img {
+  width: min(100%, 420px);
+  max-height: none;
+}
+
 /* ---------- MESSAGE + FORM (cream scene) ---------- */
 
 .messageGrid {
@@ -130,6 +141,32 @@
 /* ---------- RESPONSIVE ---------- */
 
 @media (max-width: 1024px) {
+  :global(.scene-art).portrait img {
+    width: min(100%, 360px);
+  }
+
+  /*
+    Tablet: scene-split stacks everything below 1025px, but a 360px portrait
+    and four lines of details fit side by side here — stacked, the text hugged
+    the left with the portrait centred under it and half the width empty.
+    Only phones stack this section. :global(.scene-split) outranks the global
+    responsive rules that reset the columns and the order.
+  */
+  @media (min-width: 768px) {
+    :global(.scene-split).cardSplit {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: clamp(28px, 4vw, 48px);
+    }
+
+    :global(.scene-split).cardSplit :global(.scene-copy) {
+      order: 2;
+    }
+
+    :global(.scene-split).cardSplit :global(.scene-art) {
+      order: 1;
+    }
+  }
+
   .messageGrid {
     grid-template-columns: 1fr;
     gap: 48px;
@@ -149,5 +186,11 @@
   .social {
     width: 52px;
     height: 52px;
+  }
+}
+
+@media (max-width: 480px) {
+  :global(.scene-art).portrait img {
+    width: min(78vw, 280px);
   }
 }

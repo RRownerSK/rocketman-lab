@@ -129,7 +129,7 @@ export default function KontaktPage() {
 
         {/* Scene 01 — CONTACT CARD: art left, details right */}
         <Scene theme="orange">
-          <div className="scene-split scene-split-reverse">
+          <div className={`scene-split scene-split-reverse ${styles.cardSplit}`}>
             <div className="scene-copy">
               <h2 className="scene-title" data-kinetic>
                 KONTAKT
@@ -173,13 +173,18 @@ export default function KontaktPage() {
               </ul>
             </div>
 
-            <div className="scene-art scene-safe" aria-hidden="true" data-tilt>
+            {/* Transparent PNG — sits straight on the orange, no frame. */}
+            <div
+              className={`scene-art scene-safe ${styles.portrait}`}
+              data-tilt
+            >
               <Image
-                src="/assets/astronaut.png"
-                alt=""
-                width={850}
-                height={850}
-                data-parallax="50"
+                src="/filip-kontakt.png"
+                alt="Filip Bajtoš, zakladateľ Rocketman"
+                width={1254}
+                height={1254}
+                sizes="(max-width: 480px) 280px, (max-width: 1024px) 360px, 420px"
+                data-parallax="40"
               />
             </div>
           </div>
