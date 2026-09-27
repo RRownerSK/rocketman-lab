@@ -29,17 +29,24 @@
 /*
   The track has to be mirrored too, not just the visual order: `order` alone
   would drop the screenshot into the narrow 0.72fr cell and shrink it by half.
+
+  Desktop only — the same (min-width: 1025px) that switches the <picture> to
+  the landscape crop. Declared unscoped, `.panelReverse .panelInner` (two
+  classes) outranked the single-class `.panelInner` stack rule below 1025px,
+  so every other card (02, 04, 06) stayed side by side on phones.
 */
-.panelReverse .panelInner {
-  grid-template-columns: minmax(0, 1.28fr) minmax(0, 0.72fr);
-}
+@media (min-width: 1025px) {
+  .panelReverse .panelInner {
+    grid-template-columns: minmax(0, 1.28fr) minmax(0, 0.72fr);
+  }
 
-.panelReverse .copy {
-  order: 2;
-}
+  .panelReverse .copy {
+    order: 2;
+  }
 
-.panelReverse .shot {
-  order: 1;
+  .panelReverse .shot {
+    order: 1;
+  }
 }
 
 .panelOrange {
@@ -140,15 +147,13 @@
     padding-block: 70px;
   }
 
-  /* Portrait crop from here down — copy on top, shot below, no side swap. */
+  /*
+    Portrait crop from here down — copy on top, shot below, for every card.
+    The side swap only exists above 1025px, so there is nothing to undo.
+  */
   .panelInner {
     grid-template-columns: minmax(0, 1fr);
     gap: 34px;
-  }
-
-  .panelReverse .copy,
-  .panelReverse .shot {
-    order: initial;
   }
 
   .shot img {
