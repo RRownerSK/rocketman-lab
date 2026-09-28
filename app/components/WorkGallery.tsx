@@ -43,6 +43,8 @@ const PROJECTS: {
   tags: string;
   accent: Accent;
   url?: string;
+  /* The live client site behind the VIEW link. External, so a plain <a>. */
+  href: string;
   desktop: Shot;
   mobile: Shot;
 }[] = [
@@ -50,6 +52,7 @@ const PROJECTS: {
     number: "01",
     name: "BEH NA BOSO TATRY",
     tags: "WEB / BRAND / EVENT",
+    href: "https://bnbtatry.sk/",
     accent: "orange",
     desktop: desktopShot("02_behnabosotatry"),
     mobile: mobileShot("02_behnabosotatry"),
@@ -58,6 +61,7 @@ const PROJECTS: {
     number: "02",
     name: "PLATKO CATERING",
     tags: "WEB / E-SHOP / IDENTITY",
+    href: "https://www.platkocatering.sk/",
     accent: "black",
     desktop: desktopShot("05_platkocatering"),
     mobile: mobileShot("05_platkocatering"),
@@ -66,6 +70,7 @@ const PROJECTS: {
     number: "03",
     name: "APARTMÁN JULI",
     tags: "WEB / FOTO / SEO / EMAIL",
+    href: "https://apartmanjuli.eu/",
     accent: "cream",
     desktop: desktopShot("03_apartmanjuli"),
     mobile: mobileShot("03_apartmanjuli"),
@@ -74,6 +79,8 @@ const PROJECTS: {
     number: "04",
     name: "ALIMAH FUSION",
     tags: "WEB / BRAND / SEO",
+    // Alimah Fusion & Divadlo alchýmie — the site lives on ohentanecdivadlo.sk.
+    href: "https://www.ohentanecdivadlo.sk/",
     accent: "blue",
     desktop: desktopShot("04_ohentanecdivadlo"),
     mobile: mobileShot("04_ohentanecdivadlo", 1699),
@@ -82,6 +89,7 @@ const PROJECTS: {
     number: "05",
     name: "LOVE COFFEE",
     tags: "E-SHOP / PRODUKTY / MARKETING / SEO",
+    href: "https://www.lovecoffee.sk/",
     accent: "purple",
     desktop: desktopShot("06_lovecoffee"),
     mobile: mobileShot("06_lovecoffee"),
@@ -92,6 +100,7 @@ const PROJECTS: {
     tags: "WEB / BRANDING / MARKETING",
     accent: "orange",
     url: "kompletfit.sk",
+    href: "https://www.kompletfit.sk/",
     desktop: desktopShot("01_kompletfit"),
     mobile: mobileShot("01_kompletfit"),
   },
@@ -155,7 +164,9 @@ export default function WorkGallery() {
 
                 <a
                   className={styles.view}
-                  href="#"
+                  href={project.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={`Otvoriť projekt ${project.name}`}
                 >
                   VIEW ↗
