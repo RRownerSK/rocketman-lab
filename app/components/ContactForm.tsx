@@ -7,16 +7,27 @@ import styles from "./ContactForm.module.css";
   Posts straight to Formspree from the browser. The endpoint comes from
   .env.local (NEXT_PUBLIC_FORMSPREE_ENDPOINT) and is inlined at build time,
   so after changing it the dev server / build has to be restarted.
+
+  Field names follow Formspree's special fields (all plans):
+    name    → shown as the sender's name
+    email   → the notification's Reply-To, so "Reply" goes to the visitor.
+              Must be the only field called email, or Formspree rejects the
+              submission as an invalid replyTo.
+    subject → the notification's Subject header. Set in handleSubmit, so the
+              visitor's own "Predmet" goes out as `predmet` instead of
+              silently becoming the subject line.
+    message → the message body
+    _gotcha → honeypot; a filled one is dropped as spam.
 */
 const ENDPOINT = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT;
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-type FieldName = "name" | "email" | "subject" | "message";
+type FieldName = "name" | "email" | "predmet" | "message";
 type FieldErrors = Partial<Record<FieldName, string>>;
 type Status = "idle" | "submitting" | "success" | "error";
 
-const FIELD_ORDER: FieldName[] = ["name", "email", "subject", "message"];
+const FIELD_ORDER: FieldName[] = ["name", "email", "predmet", "message"];
 
 function validate(data: FormData): FieldErrors {
   const errors: FieldErrors = {};
@@ -68,9 +79,18 @@ export default function ContactForm() {
       return;
     }
 
-    const subject = String(data.get("subject") ?? "").trim();
-    // Formspree uses _subject as the notification e-mail's subject line.
-    data.set("_subject", subject || "Nová správa z rocketman.digital");
+    const name = String(data.get("name") ?? "").trim();
+    const email = String(data.get("email") ?? "").trim();
+    const predmet = String(data.get("predmet") ?? "").trim();
+
+    // Trimmed, so a stray space cannot break the Reply-To address.
+    data.set("name", name);
+    data.set("email", email);
+
+    if (predmet) data.set("predmet", predmet);
+    else data.delete("predmet");
+
+    data.set("subject", `Nová správa z rocketman.digital – ${name}`);
 
     setStatus("submitting");
 
@@ -171,10 +191,10 @@ export default function ContactForm() {
       </div>
 
       <div className={styles.field}>
-        <label className={styles.label} htmlFor="contact-subject">
+        <label className={styles.label} htmlFor="contact-predmet">
           Predmet <span className={styles.optional}>(nepovinné)</span>
         </label>
-        <input {...fieldProps("subject")} type="text" />
+        <input {...fieldProps("predmet")} type="text" />
       </div>
 
       <div className={styles.field}>
