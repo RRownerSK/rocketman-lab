@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { CookieSettingsLink } from "./CookieConsent";
 import Scene from "./Scene";
 import styles from "./SiteFooter.module.css";
 
@@ -40,6 +41,17 @@ export default function SiteFooter({ home = false }: SiteFooterProps) {
         <div className={styles.footerBottom}>
           <span>© 2026 ROCKETMAN.DIGITAL</span>
           <span>WEB / MARKETING / GROWTH</span>
+        </div>
+
+        <div className={styles.footerLegal}>
+          <a
+            href="/ochrana-osobnych-udajov.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Ochrana osobných údajov
+          </a>
+          <CookieSettingsLink className={styles.footerLegalButton} />
         </div>
       </div>
     </Scene>

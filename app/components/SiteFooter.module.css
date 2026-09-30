@@ -55,6 +55,33 @@
   letter-spacing: 0.07em;
 }
 
+.footerLegal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 18px;
+  padding-bottom: 22px;
+  font-size: 0.62rem;
+  line-height: 1.5;
+}
+
+.footerLegal a,
+.footerLegalButton {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: rgba(243, 240, 233, 0.6);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.footerLegal a:hover,
+.footerLegalButton:hover {
+  color: var(--rocket-cream);
+}
+
 @media (max-width: 850px) {
   .footerGrid {
     grid-template-columns: 1fr;
@@ -70,5 +97,9 @@
     flex-direction: column;
     justify-content: center;
     text-align: center;
+  }
+
+  .footerLegal {
+    justify-content: center;
   }
 }

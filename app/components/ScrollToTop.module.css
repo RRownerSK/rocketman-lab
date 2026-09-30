@@ -7,7 +7,8 @@
 .button {
   position: fixed;
   right: clamp(16px, 2.4vw, 36px);
-  bottom: clamp(16px, 2.4vw, 36px);
+  /* lifted above the cookie banner while it is showing */
+  bottom: calc(clamp(16px, 2.4vw, 36px) + var(--cookie-banner-offset, 0px));
   z-index: 50;
   display: grid;
   place-items: center;
@@ -25,7 +26,7 @@
   opacity: 0;
   transform: translateY(18px) scale(0.9);
   pointer-events: none;
-  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+  transition: opacity 0.35s ease, bottom 0.35s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
     background-color 0.22s ease, box-shadow 0.22s ease;
 }
 

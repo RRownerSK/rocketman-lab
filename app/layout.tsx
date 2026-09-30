@@ -5,6 +5,7 @@ import {
   Roboto,
 } from "next/font/google";
 
+import CookieConsent from "./components/CookieConsent";
 import ScrollToTop from "./components/ScrollToTop";
 import {
   DEFAULT_DESCRIPTION,
@@ -83,6 +84,7 @@ export default function RootLayout({
         />
         {children}
         <ScrollToTop />
+        <CookieConsent />
       </body>
     </html>
   );
