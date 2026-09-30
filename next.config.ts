@@ -24,6 +24,31 @@ const nextConfig: NextConfig = {
       { source: "/ahoj-svet", destination: "/", permanent: true },
     ];
   },
+
+  /*
+    Baseline security headers on every route. No Content-Security-Policy yet:
+    it needs testing against GA, Formspree and the scroll animations first.
+  */
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "DENY" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
