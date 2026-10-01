@@ -152,7 +152,7 @@ export default function Home() {
 
             <div className="scene-art scene-safe" aria-hidden="true" data-tilt>
               <Image
-                src="/03-web-ui-orbit.png"
+                src="/technologia-rychlost.png"
                 alt=""
                 width={900}
                 height={900}
@@ -396,7 +396,13 @@ export default function Home() {
             </div>
 
             <div className="scene-art scene-safe" aria-hidden="true" data-tilt>
-              <AstronautLaunch parallax="50" />
+              <Image
+                src="/final-cta-launch.png"
+                alt=""
+                width={850}
+                height={850}
+                data-parallax="50"
+              />
             </div>
           </div>
         </Scene>

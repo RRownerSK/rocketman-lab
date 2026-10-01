@@ -12,8 +12,8 @@ import styles from "./AstronautLaunch.module.css";
   and flame fly in once and then bob; the dots, cube and speed lines drift
   on their own loops (--dur / --d / --r per layer).
 
-  Off screen every animation is paused, so two of these on the homepage
-  cost nothing while they are not visible.
+  Off screen every animation is paused, so it costs nothing once the hero
+  has been scrolled past.
 */
 
 type Layer = {
