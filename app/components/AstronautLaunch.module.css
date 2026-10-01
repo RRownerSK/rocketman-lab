@@ -1,0 +1,172 @@
+/* =========================================================
+   ASTRONAUT LAUNCH — layered animation (from astronaut-snippet.html)
+   The stage sizes itself like a .scene-art image would (same width
+   and max-height caps per breakpoint), and the layer rule is two
+   classes deep so .scene-art img cannot resize the layers.
+   ========================================================= */
+
+.astro {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --stage: min(100%, 680px, 72svh, 760px);
+
+  position: relative;
+  width: var(--stage);
+  aspect-ratio: 1 / 1;
+  container-type: inline-size;
+  pointer-events: none;
+  user-select: none;
+}
+
+.astro .layer {
+  position: absolute;
+  display: block;
+  height: auto;
+  max-height: none;
+  will-change: transform;
+}
+
+.enter,
+.rig,
+.deco {
+  position: absolute;
+  inset: 0;
+}
+
+/* Astronaut + flame fly in once, then float */
+.enter {
+  animation: astro-in 900ms var(--ease-out) both;
+}
+
+.rig {
+  animation: astro-bob 1.8s ease-in-out infinite alternate;
+  transform-origin: 62% 42%;
+}
+
+.astro .flame {
+  transform-origin: 78.6% 51.9%;
+  animation: astro-flicker 0.48s linear infinite;
+}
+
+.astro .line {
+  opacity: 0;
+  animation: astro-streak var(--dur) linear var(--d) infinite;
+}
+
+.astro .dot,
+.astro .cube {
+  animation: astro-drift var(--dur) ease-in-out var(--d) infinite alternate;
+}
+
+.deco {
+  animation: astro-fade 600ms var(--ease-out) 250ms both;
+}
+
+.paused,
+.paused * {
+  animation-play-state: paused !important;
+}
+
+@keyframes astro-in {
+  from {
+    opacity: 0;
+    transform: translate(-9cqw, 9cqw) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes astro-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes astro-bob {
+  from {
+    transform: translate(0.5cqw, -0.5cqw) rotate(0.6deg);
+  }
+  to {
+    transform: translate(-0.6cqw, 0.6cqw) rotate(-0.8deg);
+  }
+}
+
+/* stretches the flame along its 45° axis */
+@keyframes astro-flicker {
+  0% {
+    transform: rotate(45deg) scaleY(1) rotate(-45deg);
+  }
+  20% {
+    transform: rotate(45deg) scaleY(1.04) rotate(-45deg);
+  }
+  40% {
+    transform: rotate(45deg) scaleY(0.975) rotate(-45deg);
+  }
+  60% {
+    transform: rotate(45deg) scaleY(1.05) rotate(-45deg);
+  }
+  80% {
+    transform: rotate(45deg) scaleY(0.99) rotate(-45deg);
+  }
+  100% {
+    transform: rotate(45deg) scaleY(1) rotate(-45deg);
+  }
+}
+
+@keyframes astro-streak {
+  0% {
+    opacity: 0;
+    transform: translate(2cqw, -2cqw);
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-4cqw, 4cqw);
+  }
+}
+
+@keyframes astro-drift {
+  from {
+    transform: translate(0.4cqw, -0.4cqw) rotate(0);
+  }
+  to {
+    transform: translate(-0.6cqw, 0.6cqw) rotate(var(--r, 0deg));
+  }
+}
+
+/* same caps as .scene-art img in scene-system.css */
+@media (max-width: 1024px) {
+  .astro {
+    --stage: min(78vw, 610px, 58svh);
+  }
+}
+
+@media (max-width: 767px) {
+  .astro {
+    --stage: min(88vw, 520px, 48svh);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .astro * {
+    animation: none !important;
+  }
+
+  .astro .line {
+    opacity: 1;
+  }
+
+  .astro .enter,
+  .astro .deco {
+    animation: astro-fade 400ms ease both !important;
+  }
+}

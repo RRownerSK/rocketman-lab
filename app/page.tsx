@@ -6,6 +6,7 @@ import Scene from "./components/Scene";
 import InfiniteMarquee from "./components/InfiniteMarquee";
 import ProcessScene from "./components/ProcessScene";
 import WorkGallery from "./components/WorkGallery";
+import AstronautLaunch from "./components/AstronautLaunch";
 import GravityLab from "./components/GravityLab";
 import { PricingCalculatorButton } from "./components/PricingCalculator";
 import TrustedBrands from "./components/TrustedBrands";
@@ -103,14 +104,7 @@ export default function Home() {
               data-tilt
               data-hero-art
             >
-              <Image
-                src="/01-astronaut-launch.png"
-                alt=""
-                width={900}
-                height={900}
-                priority
-                data-parallax="50"
-              />
+              <AstronautLaunch priority parallax="50" />
             </div>
           </div>
 
@@ -402,13 +396,7 @@ export default function Home() {
             </div>
 
             <div className="scene-art scene-safe" aria-hidden="true" data-tilt>
-              <Image
-                src="/01-astronaut-launch.png"
-                alt=""
-                width={850}
-                height={850}
-                data-parallax="50"
-              />
+              <AstronautLaunch parallax="50" />
             </div>
           </div>
         </Scene>
