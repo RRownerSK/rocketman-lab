@@ -9,7 +9,8 @@ import styles from "./ContactForm.module.css";
   so after changing it the dev server / build has to be restarted.
 
   Field names follow Formspree's special fields (all plans):
-    name    → shown as the sender's name
+    name    → shown as the sender's name. The form asks for `meno` and
+              `priezvisko` separately; handleSubmit joins them into `name`.
     email   → the notification's Reply-To, so "Reply" goes to the visitor.
               Must be the only field called email, or Formspree rejects the
               submission as an invalid replyTo.
@@ -17,29 +18,52 @@ import styles from "./ContactForm.module.css";
               visitor's own "Predmet" goes out as `predmet` instead of
               silently becoming the subject line.
     message → the message body
+    telefon → plain field, optional
     _gotcha → honeypot; a filled one is dropped as spam.
 */
 const ENDPOINT = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT;
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+/* Digits with the usual separators (+421 900 123 456, 0900/123 456), 9+ digits. */
+const isValidPhone = (phone: string) =>
+  /^\+?[\d\s/().-]+$/.test(phone) && phone.replace(/\D/g, "").length >= 9;
 
-type FieldName = "name" | "email" | "predmet" | "message";
+type FieldName =
+  | "meno"
+  | "priezvisko"
+  | "email"
+  | "telefon"
+  | "predmet"
+  | "message";
 type FieldErrors = Partial<Record<FieldName, string>>;
 type Status = "idle" | "submitting" | "success" | "error";
 
-const FIELD_ORDER: FieldName[] = ["name", "email", "predmet", "message"];
+const FIELD_ORDER: FieldName[] = [
+  "meno",
+  "priezvisko",
+  "email",
+  "telefon",
+  "predmet",
+  "message",
+];
 
 function validate(data: FormData): FieldErrors {
   const errors: FieldErrors = {};
-  const name = String(data.get("name") ?? "").trim();
+  const meno = String(data.get("meno") ?? "").trim();
+  const priezvisko = String(data.get("priezvisko") ?? "").trim();
   const email = String(data.get("email") ?? "").trim();
+  const telefon = String(data.get("telefon") ?? "").trim();
   const message = String(data.get("message") ?? "").trim();
 
-  if (!name) errors.name = "Zadajte, prosím, vaše meno.";
+  if (!meno) errors.meno = "Zadajte, prosím, vaše meno.";
+  if (!priezvisko) errors.priezvisko = "Zadajte, prosím, vaše priezvisko.";
 
   if (!email) errors.email = "Zadajte, prosím, váš e-mail.";
   else if (!EMAIL_PATTERN.test(email))
     errors.email = "E-mail nemá správny formát, napr. meno@firma.sk.";
+
+  if (telefon && !isValidPhone(telefon))
+    errors.telefon = "Telefón nemá správny formát, napr. +421 900 123 456.";
 
   if (!message) errors.message = "Napíšte nám, prosím, správu.";
 
@@ -79,13 +103,21 @@ export default function ContactForm() {
       return;
     }
 
-    const name = String(data.get("name") ?? "").trim();
+    const name = [data.get("meno"), data.get("priezvisko")]
+      .map((part) => String(part ?? "").trim())
+      .join(" ");
     const email = String(data.get("email") ?? "").trim();
+    const telefon = String(data.get("telefon") ?? "").trim();
     const predmet = String(data.get("predmet") ?? "").trim();
 
-    // Trimmed, so a stray space cannot break the Reply-To address.
+    data.delete("meno");
+    data.delete("priezvisko");
     data.set("name", name);
+    // Trimmed, so a stray space cannot break the Reply-To address.
     data.set("email", email);
+
+    if (telefon) data.set("telefon", telefon);
+    else data.delete("telefon");
 
     if (predmet) data.set("predmet", predmet);
     else data.delete("predmet");
@@ -161,18 +193,35 @@ export default function ContactForm() {
     >
       <div className={styles.row}>
         <div className={styles.field}>
-          <label className={styles.label} htmlFor="contact-name">
+          <label className={styles.label} htmlFor="contact-meno">
             Meno <span aria-hidden="true">*</span>
           </label>
           <input
-            {...fieldProps("name")}
+            {...fieldProps("meno")}
             type="text"
-            autoComplete="name"
+            autoComplete="given-name"
             required
             aria-required="true"
           />
-          {fieldError("name")}
+          {fieldError("meno")}
         </div>
+
+        <div className={styles.field}>
+          <label className={styles.label} htmlFor="contact-priezvisko">
+            Priezvisko <span aria-hidden="true">*</span>
+          </label>
+          <input
+            {...fieldProps("priezvisko")}
+            type="text"
+            autoComplete="family-name"
+            required
+            aria-required="true"
+          />
+          {fieldError("priezvisko")}
+        </div>
+      </div>
+
+      <div className={styles.row}>
 
         <div className={styles.field}>
           <label className={styles.label} htmlFor="contact-email">
@@ -187,6 +236,19 @@ export default function ContactForm() {
             aria-required="true"
           />
           {fieldError("email")}
+        </div>
+
+        <div className={styles.field}>
+          <label className={styles.label} htmlFor="contact-telefon">
+            Telefón <span className={styles.optional}>(nepovinné)</span>
+          </label>
+          <input
+            {...fieldProps("telefon")}
+            type="tel"
+            autoComplete="tel"
+            inputMode="tel"
+          />
+          {fieldError("telefon")}
         </div>
       </div>
 

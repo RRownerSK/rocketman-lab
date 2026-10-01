@@ -14,7 +14,10 @@
   gap: 8px;
   min-height: 62px;
   padding: 0 34px;
+  /* also used on <button>s (the calculator CTA) */
+  border: 0;
   border-radius: 999px;
+  cursor: pointer;
   font-family: var(--accent), sans-serif;
   font-size: 0.86rem;
   font-weight: 800;

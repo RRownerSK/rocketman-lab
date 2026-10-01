@@ -7,6 +7,7 @@ import InfiniteMarquee from "./components/InfiniteMarquee";
 import ProcessScene from "./components/ProcessScene";
 import WorkGallery from "./components/WorkGallery";
 import GravityLab from "./components/GravityLab";
+import { PricingCalculatorButton } from "./components/PricingCalculator";
 import TrustedBrands from "./components/TrustedBrands";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
@@ -285,9 +286,18 @@ export default function Home() {
                 <span className="scene-accent">KONZULTÁCIA.</span>
               </h2>
               <p data-reveal="up">
-                Najprv pochopíme projekt, problém a cieľ. Krátky call alebo
-                stretnutie, bez záväzkov a bez predajných rečí.
+                Konzultácia aj cenová ponuka sú zadarmo a nezáväzné. Najprv
+                pochopíme projekt, problém a cieľ, bez predajných rečí. Orientačnú
+                cenu si môžete spočítať hneď teraz v našej kalkulačke.
               </p>
+              <div className={styles.heroActions}>
+                <PricingCalculatorButton
+                  className={`${styles.button} ${styles.buttonOrange}`}
+                  magnetic
+                >
+                  VYPOČÍTAŤ ORIENTAČNÚ CENU ↗
+                </PricingCalculatorButton>
+              </div>
             </div>
 
             <div className="scene-art scene-safe" aria-hidden="true" data-tilt>

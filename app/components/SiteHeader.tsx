@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { PricingCalculatorButton } from "./PricingCalculator";
 import styles from "./SiteHeader.module.css";
 
 type SiteHeaderProps = {
@@ -30,6 +31,10 @@ export default function SiteHeader({ home = false, current }: SiteHeaderProps) {
         <Link href={section("#work")}>WORK</Link>
         <Link href={section("#services")}>SLUŽBY</Link>
         <Link href={section("#process")}>PROCES</Link>
+        {/* Opens the calculator modal in place; there is no pricing page. */}
+        <PricingCalculatorButton className={styles.navButton}>
+          CENNÍK
+        </PricingCalculatorButton>
         <Link
           href="/kontakt"
           aria-current={current === "kontakt" ? "page" : undefined}

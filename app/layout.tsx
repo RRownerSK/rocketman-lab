@@ -6,6 +6,7 @@ import {
 } from "next/font/google";
 
 import CookieConsent from "./components/CookieConsent";
+import PricingCalculator from "./components/PricingCalculator";
 import ScrollToTop from "./components/ScrollToTop";
 import {
   DEFAULT_DESCRIPTION,
@@ -84,6 +85,7 @@ export default function RootLayout({
         />
         {children}
         <ScrollToTop />
+        <PricingCalculator />
         <CookieConsent />
       </body>
     </html>

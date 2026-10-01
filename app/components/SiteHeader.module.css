@@ -25,12 +25,26 @@
   text-transform: uppercase;
 }
 
-.navLinks a {
+.navLinks a,
+.navButton {
   transition: opacity 0.2s ease;
 }
 
-.navLinks a:hover {
+.navLinks a:hover,
+.navButton:hover {
   opacity: 0.62;
+}
+
+/* "Cenník" is a button (it opens the calculator), dressed as a nav link. */
+.navButton {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
 }
 
 .navLinks a[aria-current="page"] {
