@@ -5,13 +5,18 @@ import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import styles from "./CookieConsent.module.css";
 
 /*
-  Cookie banner + settings panel, and the only place Google Analytics loads.
+  Cookie banner + settings panel, and the only place analytics loads
+  (Google Analytics and PostHog, both under the "analytics" category).
 
   The stored choice lives in localStorage under "cookie-consent". gtag.js is
   rendered (and so attached to the DOM) only while that choice says
   analytics: true AND a measurement ID is configured — never before, never
   "just in case". The server render and hydration always see "no choice", so
   nothing analytics-related can slip into the HTML either.
+
+  PostHog follows the same rule: posthog-js is imported and initialised only
+  once analytics is consented to and NEXT_PUBLIC_POSTHOG_KEY is set, so the
+  library is not even downloaded before that. Withdrawing consent opts it out.
 
   The footer's "Nastavenia cookies" link reopens the panel through
   openCookieSettings(), prefilled with whatever is stored.
@@ -27,6 +32,9 @@ const STORAGE_KEY = "cookie-consent";
 const CHANGE_EVENT = "cookie-consent:change";
 const OPEN_EVENT = "cookie-consent:open";
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+const POSTHOG_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY;
+const POSTHOG_HOST =
+  process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://eu.i.posthog.com";
 const PRIVACY_PDF = "/ochrana-osobnych-udajov.pdf";
 
 const readRaw = () => {
@@ -105,6 +113,35 @@ const disableAnalytics = () => {
   });
 };
 
+/*
+  Consent given: load PostHog (first time) or opt it back in. The 2026-08-30
+  defaults capture a pageview on every client-side route change, which is
+  what the App Router needs. Person profiles only for identified users —
+  this site has no logins, so visits stay anonymous events.
+*/
+const enablePostHog = async () => {
+  if (!POSTHOG_KEY) return;
+  const { default: posthog } = await import("posthog-js");
+
+  if (posthog.__loaded) {
+    posthog.opt_in_capturing();
+    return;
+  }
+
+  posthog.init(POSTHOG_KEY, {
+    api_host: POSTHOG_HOST,
+    defaults: "2026-08-30",
+    person_profiles: "identified_only",
+  });
+};
+
+/* Consent withdrawn: only matters if PostHog was loaded in this page view. */
+const disablePostHog = async () => {
+  if (!POSTHOG_KEY) return;
+  const { default: posthog } = await import("posthog-js");
+  if (posthog.__loaded) posthog.opt_out_capturing();
+};
+
 export default function CookieConsent() {
   const consent = useSyncExternalStore(subscribe, getConsent, () => null);
   // False in the server render and during hydration, so the banner never ships in the HTML.
@@ -132,6 +169,11 @@ export default function CookieConsent() {
     if (panelOpen && !dialog.open) dialog.showModal();
     if (!panelOpen && dialog.open) dialog.close();
   }, [panelOpen]);
+
+  useEffect(() => {
+    if (analyticsOn) void enablePostHog();
+    else if (consent) void disablePostHog();
+  }, [analyticsOn, consent]);
 
   useEffect(() => {
     if (!GA_ID) return;
